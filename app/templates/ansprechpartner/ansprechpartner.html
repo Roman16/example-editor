@@ -1,0 +1,169 @@
+<div class="container ansprechpartner-page">
+    <div class="b-tabs">
+
+        <div class="b-tabs__container">
+
+            <!--bank list  START-->
+            <div class="first_form clearfix">
+                <div class="b-tabs__block-left">
+                    <div class="b-form__title-dark b-form__title"><span>Ansprechpartner</span>
+                        <span class="kinder" ng-click="vm.newPerson()">
+                                    <img class="btn btn__plus btn--light" src="content/images/icons/plus.png"
+                                         alt="plus_btn">
+                                </span>
+                    </div>
+                    <input  ng-model="vm.search" placeholder="search" style="width: 100%">
+                    <div class="b-form__block">
+
+                        <div class="b-tabs__table-info">
+                            <div class="block-table">
+                                <div ng-if="vm.download" class="loading">
+                                <img  src="content/images/loader.gif">
+                                    <h4>Loading</h4>
+                                </div>
+                                <table>
+                                    <tbody ng-if="!vm.download">
+                                    <tr ng-repeat="item in   vm.allPersons | filter:vm.search"
+                                        ng-click="vm.selectPersons(item)">
+                                        <td>
+                                            <a ng-if="item.Vorname !== ' '" href="">{{item.Vorname}} {{item.Name}}</a>
+                                            <a ng-if="item.Vorname === '' && item.Name === ''" href="">undefined</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--bank list  END-->
+
+
+                <div class="b-tabs__block-right">
+
+                    <div class="b-form__title-dark b-form__title">
+                        <span>Persönliches</span> <span>Kunden-Nr {{vm.selectedPerson.ContactPersonId}}</span>
+                    </div>
+                    <div class="b-form__half-col b-form__half-col--first">
+                        <h4 class="b-form__sub-header">Persönliche Namensdaten</h4>
+                        <div class="b-form__block">
+                                                    <span class="b-form__input">
+                                    <label for="famili">Anrede</label>
+                                    <select id="famili" class="gwt-ListBox" ng-model="vm.selectedPerson.Salutation">
+                                    <option value="Herrn">Herrn</option>
+                                    <option value="Firma">Firma</option>
+                                    </select>
+                        </span>
+
+                        <span class="b-form__input">
+                            <label for="Vorname">Vorname</label>
+                            <input ng-model="vm.selectedPerson.Vorname" id="Vorname">
+                        </span>
+                        <span class="b-form__input">
+                            <label for="Nachname">Nachname</label>
+                            <input ng-model="vm.selectedPerson.Name" id="Nachname">
+                        </span>
+
+                            <span class="b-form__input">
+                    <label for="date_birthd">Geburtsdatum</label>
+                    <input id="date_birthd"  placeholder="dd.mm.yyyy" ng-model="vm.selectedPerson.dtmDate"
+                           tabindex="{{(vm.data.number*100)+6}}">
+                </span>
+
+                        </div>
+
+                        <h4 class="b-form__sub-header">Persönliche Adressdaten</h4>
+                        <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label for="street">Straße</label>
+                            <input ng-model="vm.selectedPerson.Position" id="street">
+                        </span>
+
+                        <span class="b-form__input">
+                            <label for="Resort">Resort</label>
+                            <input ng-model="vm.selectedPerson.Resort" id="Resort">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="Department">Abteilung</label>
+                            <input ng-model="vm.selectedPerson.Department"  id="Department">
+                        </span>
+
+                        </div>
+                    </div>
+
+                    <div class="b-form__half-col b-form__half-col--last">
+
+                        <h4 class="b-form__sub-header">Persönliche Internetdaten</h4>
+                        <div class="b-form__block">
+                          <span class="b-form__input">
+                            <label for="street">E-Mail</label>
+                            <input ng-model="vm.selectedPerson.Email" id="Email">
+                          </span>
+
+                            <span class="b-form__input">
+                            <label for="Homepage">Homepage</label>
+                            <input ng-model="vm.selectedPerson.HomePage" id="Homepage">
+                        </span>
+                        </div>
+
+                        <h4 class="b-form__sub-header">Persönliche Telefondaten</h4>
+                        <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label for="tel1">Telefon</label>
+                            <input ng-model="vm.selectedPerson.Phone"  id="tel1">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="Funk">Funk</label>
+                            <input ng-model="vm.selectedPerson.Funk"  id="Funk">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="tel2">Fax</label>
+                            <input ng-model="vm.selectedPerson.Fax"  id="tel2">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="MemInfo">Mem Info</label>
+                            <input ng-model="vm.selectedPerson.MemInfo"  id="MemInfo">
+                        </span>
+
+                        <span class="b-form__radio-label">
+                <label>Bank/partner</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.selectedPerson.AttachedTo" value="0" type="radio">
+                        <label>Bank</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.selectedPerson.AttachedTo" value="1" type="radio">
+                        <label>Partner</label>
+                    </span>
+                </span>
+            </span>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="b-form__half-col b-form__half-col--last">
+
+                    <div ng-if="!vm.showNewPerson" class="selected-partner button-block">
+                        <button class="save" ng-click="vm.updatePerson(vm.selectedPerson)">save</button>
+                        <button ng-click="vm.removePersone(vm.selectedPerson)">remove</button>
+                    </div>
+
+                    <div ng-if="vm.showNewPerson" class="add-partner button-block">
+                        <button class="save" ng-click="vm.addPerson(vm.selectedPerson)">add Partner</button>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

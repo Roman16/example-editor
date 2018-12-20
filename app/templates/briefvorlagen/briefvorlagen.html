@@ -1,0 +1,236 @@
+<div class="editor-block">
+    <div class="editor-menu">
+        <ul class="b-form__block">
+            <li style="background: rgb(6, 73, 133)">
+                <a style="color:white;margin: 0 auto">Briefvorlage</a>
+                <span ng-click="(vm.bankVariablesList || vm.klientVariablesList || vm.partnerVariablesList) ? '' : vm.newTemplate(); vm.showButton = true">
+                    <img class="btn btn__plus btn--light {{(vm.bankVariablesList || vm.klientVariablesList || vm.partnerVariablesList) ? 'disabled-button' : ''}}" src="content/images/icons/plus.png"
+                         alt="plus_btn">
+                </span>
+
+            </li>
+            <li ng-repeat="template in vm.templates" ng-click="vm.onTemplateClick(template); vm.showButton = false">
+                <a>{{template.Name}}</a>
+                <div class="b-buy__options no-margin-top">
+                    <img src="content/images/icons/trash_basket.png" class="btn btn__trash btn--light {{(vm.bankVariablesList || vm.klientVariablesList || vm.partnerVariablesList) ? 'disabled-button' : ''}}"
+                         ng-click="(vm.bankVariablesList || vm.klientVariablesList || vm.partnerVariablesList) ? '' : vm.remove(template, $index)">
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="editor-content">
+        <div style="display: flex">
+            <h4 class="user-id" ng-if="vm.bankVariablesList">
+                <span class="id-label">Bank: {{vm.bankVariablesList.AntragstellerId}} {{vm.bankVariablesList.firmenname}}</span>
+                <span ng-if="vm.clientVorgang">Kunde: {{vm.clientVorgang.second_name}}<span
+                        ng-if="vm.clientVorgang.vorname">,</span> {{vm.clientVorgang.vorname}}</span>
+            </h4>
+
+            <h4 class="user-id" ng-if="vm.partnerVariablesList">
+                <span class="id-label">Partner: {{vm.partnerVariablesList.AntragstellerId}}  {{vm.partnerVariablesList.second_name}}<span
+                        ng-if="vm.partnerVariablesList.second_name">,</span>{{vm.partnerVariablesList.second_name}} </span>
+                <span ng-if="vm.clientVorgang">Kunde: {{vm.clientVorgang.second_name}}<span
+                        ng-if="vm.clientVorgang.vorname">,</span> {{vm.clientVorgang.vorname}}</span>
+            </h4>
+
+            <h4 ng-if="vm.klientVariablesList" class="user-id">
+                Kunde: {{vm.klientVariablesList.AntragstellerId}} {{vm.klientVariablesList.second_name}}<span
+                    ng-if="vm.klientVariablesList.vorname">,</span> {{vm.klientVariablesList.vorname}}</h4>
+        </div>
+
+        <div ckeditor="options" ng-model="vm.htmlContent" ready="onReady()"></div>
+
+        <div class="b-form__title-btn b-form__title">
+            <button type="submit" class="test-button"
+                    ng-if="!(vm.bankVariablesList || vm.partnerVariablesList || vm.klientVariablesList)"
+                    ng-click="vm.save(false)">Speichern
+            </button>
+        </div>
+    </div>
+    <div class="editor-list-block" ng-if="!(vm.bankVariablesList || vm.klientVariablesList || vm.partnerVariablesList)">
+        <ul class="b-form__block variables-block bank-variables-list {{ vm.showListBlock == 'bank' ? 'open-list-block' : ''}}">
+            <li ng-click="vm.showListBlock = 'bank'"><a
+                    style="color:white;">Bank</a></li>
+            <li ng-click="vm.set('[datum]')">
+                <span>[datum]</span>
+            </li>
+            <li ng-click="vm.set('[bank.anrede]')">
+                <span>[bank.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[bank.firmenname]')">
+                <span>[bank.firmenname]</span>
+            </li>
+            <li ng-click="vm.set('[bank.straße]')">
+                <span>[bank.straße]</span>
+            </li>
+            <li ng-click="vm.set('[bank.plz]')">
+                <span>[bank.plz]</span>
+            </li>
+            <li ng-click="vm.set('[bank.ort]')">
+                <span>[bank.ort]</span>
+            </li>
+
+            <li ng-click="vm.set('[bank.ansprechpartner.sehr.geehrte(r)]')">
+                <span>[bank.ansprechpartner.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[bank.ansprechpartner.anrede]')">
+                <span>[bank.ansprechpartner.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[bank.ansprechpartner.name]')">
+                <span>[bank.ansprechpartner.name]</span>
+            </li>
+            <li ng-click="vm.set('[bank.ansprechpartner.vorname]')">
+                <span>[bank.ansprechpartner.vorname]</span>
+            </li>
+
+            <li ng-click="vm.set('[bank.klient.sehr.geehrte(r)]')">
+                <span>[bank.klient.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.anrede]')">
+                <span>[bank.klient.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.name]')">
+                <span>[bank.klient.name]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.vorname]')">
+                <span>[bank.klient.vorname]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.straße]')">
+                <span>[bank.klient.straße]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.plz]')">
+                <span>[bank.klient.plz]</span>
+            </li>
+            <li ng-click="vm.set('[bank.klient.ort]')">
+                <span>[bank.klient.ort]</span>
+            </li>
+        </ul>
+
+        <ul class="b-form__block variables-block partner-variables-list {{ vm.showListBlock == 'partner' ? 'open-list-block' : ''}}">
+            <li ng-click="vm.showListBlock = 'partner'"><a
+                    style="color:white;">Partner</a></li>
+            <li ng-click="vm.set('[datum]')">
+                <span>[datum]</span>
+            </li>
+            <li ng-click="vm.set('[partner.sehr.geehrte(r)]')">
+                <span>[partner.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[partner.anrede]')">
+                <span>[partner.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[partner.name]')">
+                <span>[partner.name]</span>
+            </li>
+            <li ng-click="vm.set('[partner.vorname]')">
+                <span>[partner.vorname]</span>
+            </li>
+            <li ng-click="vm.set('[partner.straße]')">
+                <span>[partner.straße]</span>
+            </li>
+            <li ng-click="vm.set('[partner.plz]')">
+                <span>[partner.plz]</span>
+            </li>
+            <li ng-click="vm.set('[partner.ort]')">
+                <span>[partner.ort]</span>
+            </li>
+
+            <li ng-click="vm.set('[partner.ansprechpartner.sehr.geehrte(r)]')">
+                <span>[partner.ansprechpartner.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[partner.ansprechpartner.anrede]')">
+                <span>[partner.ansprechpartner.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[partner.ansprechpartner.name]')">
+                <span>[partner.ansprechpartner.name]</span>
+            </li>
+            <li ng-click="vm.set('[partner.ansprechpartner.vorname]')">
+                <span>[partner.ansprechpartner.vorname]</span>
+            </li>
+
+            <li ng-click="vm.set('[partner.klient.sehr.geehrte(r)]')">
+                <span>[partner.klient.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.anrede]')">
+                <span>[partner.klient.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.name]')">
+                <span>[partner.klient.name]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.vorname]')">
+                <span>[partner.klient.vorname]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.straße]')">
+                <span>[partner.klient.straße]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.plz]')">
+                <span>[partner.klient.plz]</span>
+            </li>
+            <li ng-click="vm.set('[partner.klient.ort]')">
+                <span>[partner.klient.ort]</span>
+            </li>
+        </ul>
+
+        <ul class="b-form__block variables-block bank-variables-list {{ vm.showListBlock == 'klient' ? 'open-list-block' : ''}}">
+            <li ng-click="vm.showListBlock = 'klient'"><a
+                    style="color:white;">Klient</a></li>
+            <li ng-click="vm.set('[datum]')">
+                <span>[datum]</span>
+            </li>
+            <li ng-click="vm.set('[klient.sehr.geehrte(r)]')">
+                <span>[klient.sehr.geehrte(r)]</span>
+            </li>
+            <li ng-click="vm.set('[klient.anrede]')">
+                <span>[klient.anrede]</span>
+            </li>
+            <li ng-click="vm.set('[klient.name]')">
+                <span>[klient.name]</span>
+            </li>
+            <li ng-click="vm.set('[klient.vorname]')">
+                <span>[klient.vorname]</span>
+            </li>
+            <li ng-click="vm.set('[klient.straße]')">
+                <span>[klient.straße]</span>
+            </li>
+            <li ng-click="vm.set('[klient.plz]')">
+                <span>[klient.plz]</span>
+            </li>
+            <li ng-click="vm.set('[klient.ort]')">
+                <span>[klient.ort]</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+<div class="briefvorlagen-dialog-window" ng-if="vm.removeDialogWindow">
+    <h4>Wollen Sie die Briefvorlage wirklich löschen?</h4>
+    <div class="button-block">
+        <button ng-click="vm.removeItem()">OK</button>
+        <button ng-click="vm.removeDialogWindow=false">Cancel</button>
+    </div>
+</div>
+
+<div class="briefvorlagen-dialog-window" ng-if="vm.saveDialogWindow">
+    <h4>Wollen Sie die Änderungen speichern?</h4>
+    <div class="button-block">
+        <button ng-click="vm.saveTemplate()" ng-disabled="vm.disabledButtonSave" class="disabled-button">Speichern
+        </button>
+        <button ng-click="vm.saveDialogWindow = false">Cancel</button>
+    </div>
+</div>
+
+<div class="briefvorlagen-dialog-window" ng-if="vm.newDialogWindow">
+    <h4>Wollen Sie die Änderungen speichern?</h4>
+    <br>
+    <input style="width: 100%" type="text" ng-model="vm.nameFile">
+    <div class="button-block">
+        <button ng-click="vm.createTemplate()" ng-disabled="vm.disabledButtonCreate" class="disabled-button">OK</button>
+        <button ng-click="vm.newDialogWindow = false">Cancel</button>
+    </div>
+</div>
+
+<!--<div style="">-->
+<!--<div id="myHTML" style="width: 21cm; margin: 0 auto; padding: 2.5cm; box-sizing: border-box"></div>-->
+<!--</div>-->

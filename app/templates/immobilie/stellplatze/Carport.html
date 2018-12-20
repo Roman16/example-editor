@@ -1,0 +1,26 @@
+<div class="b-buy__item b-buy__name">
+    {{item.name}}
+</div>
+<div class="b-buy__item b-buy__bet">
+    <span class="b-form__radio-label">
+        <label for="first_name">Vermietet?</label>
+        <span class="b-form__col b-form__inline">
+            <span class="b-form__radio">
+                <input ng-model="$parent.item.carport.prop1" value="1" id="carportja{{$index}}" type="radio">
+                <label for="carportja{{$index}}">ja</label>
+            </span>
+            <span class="b-form__radio">
+                <input ng-model="$parent.item.carport.prop1" value="0" id="carportnein{{$index}}" type="radio">
+                <label for="carportnein{{$index}}">nein</label>
+            </span>
+        </span>
+    </span>
+</div>
+<div class="b-buy__item b-buy__begin"></div>
+<div class="b-buy__item b-buy__options" style="margin: 7px 15px 0 0;">
+            <span class="b-form__input">
+            <img src="content/images/icons/trash_basket.png"
+                    class="btn btn__trash btn--light"
+                    ng-click="$parent.vm.deleteStellplatze($index)">
+        </span>
+</div>

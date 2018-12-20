@@ -1,0 +1,65 @@
+<header class="b-header">
+    <div class="container clearfix">
+        <nav class="b-header__main-nav" role="navigation">
+            <ul class="b-header__nav clearfix">
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.dashboard">Übersicht</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.registration">Benutzerverwaltung</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a style="cursor: pointer;{{vm.wiedervorlage_all_count > 0 ? 'color: rgb(6, 73, 133)' : ''}}" ng-click="vm.openVorgangsmanagement()">Vorgangsmanagement({{vm.wiedervorlage_all_count}})</a>
+                    <a style="cursor: pointer;{{vm.wiedervorlage_user_count > 0 ? 'color: rgb(6, 73, 133)' : ''}}" ng-click="vm.openVorgangsmanagement('user')">Meine({{vm.wiedervorlage_user_count}})</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.briefvorlagen" ng-click="vm.clearSession()">Briefvorlagen</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.adressenverwaltung.banken">Adressenverwaltung</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.statistic.client">Daten</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a target="_blank" href="https://teamup.com/ks951c33cac6815410">Kalender</a>
+                </li>
+            </ul>
+            <!--<div style="display: flex; align-items: center; margin-left: 50px">-->
+                <!--<i class="material-icons" ng-click="vm.replayCount()" style="font-size: 16px;cursor: pointer;margin-right: 10px;color: #8c8c8c">replay</i>-->
+                <!--Wiedervorlage: {{vm.wiedervorlage_count}}-->
+            <!--</div>-->
+        </nav>
+
+
+        <nav class="b-header__links-nav" role="navigation">
+            <ul class="b-header__nav clearfix">
+                <li class="b-header__nav-item toggle-menu" style="margin-top: -2px">
+                    <i class="material-icons">mail_outline</i>
+                    <ul class="sub-menu" id="sub-menu">
+                        <li ng-click="vm.exportEmails('partners')">Partner</li>
+                        <li ng-click="vm.exportEmails('banks')">Banken</li>
+                        <li ng-click="vm.exportEmails('clients')">Klienten</li>
+                    </ul>
+                </li>
+                <li class="b-header__nav-item b-header__links-search">
+                    <a class="search" ng-click='vm.modal.toggleModal()'></a>
+                </li>
+                <!--<li class="b-header__nav-item">
+                    <a href="#">Schließen</a>
+                </li>-->
+                <li class="b-header__nav-item b-header__links-user" ng-click="vm.logout()">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="b-header__logo clearfix">
+            <a ui-sref="app.dashboard" class="b-header__logo-link">
+                <img class="b-header__logo-image" src="content/images/imageUltima.jpg" alt="Ultima">
+            </a>
+        </div>
+    </div>
+
+</header>
+<search data-parent="vm.modal"></search>
+<div ui-view></div>

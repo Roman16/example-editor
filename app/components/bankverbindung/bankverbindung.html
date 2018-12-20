@@ -1,0 +1,46 @@
+<div class="b-form__block b-banking clearfix" style="padding-top: 15px;"  ng-repeat="bank in vm.array track by $index">
+    <div class="b-banking__item b-banking__kont">
+                            <span class="b-form__input">
+                                <label for="kont">Kontoinhaber</label>
+                                <select id="kont" ng-model="bank.kont">
+                                    <option value="-1">Bitte wählen Sie ...</option>
+                                    <option value="1">Antragsteller 1</option>
+                                    <option value="2">Antragsteller 2</option>
+                                    <option value="3">beide Antragsteller</option>
+                                </select>
+                            </span>
+    </div>
+    <div class="b-banking__item b-banking__iban">
+                            <span class="b-form__input">
+                                <label for="iban">IBAN</label>
+                                <input id="iban" type="text" ng-model="bank.iban">
+                            </span>
+    </div>
+    <div class="b-banking__item b-banking__bic">
+                            <span class="b-form__input">
+                                <label for="bic">BIC</label>
+                                <input id="bic" type="text" ng-model="bank.bic">
+                            </span>
+    </div>
+    <div class="b-banking__item b-banking__num">
+                            <span class="b-form__input">
+                                <label for="num">Konto-Nr.</label>
+                                <input id="num" type="text" ng-model="bank.num">
+                            </span>
+    </div>
+    <div class="b-banking__item b-banking__blz">
+                            <span class="b-form__input">
+                                <label for="blz">BLZ</label>
+                                <input id="blz" type="text" ng-model="bank.blz">
+                            </span>
+    </div>
+    <div class="b-banking__item b-banking__kredit">
+                            <span class="b-form__input">
+                                <label for="cred_inst">Kreditinstitut</label>
+                                <input id="cred_inst" type="text" ng-model="bank.cred_inst">
+                            </span>
+    </div>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light bank-delete"
+         ng-click="vm.deleteBankverbindung($indexs)">
+</div>

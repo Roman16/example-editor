@@ -1,0 +1,146 @@
+<div class="statistic-page">
+    <div style="display: flex;justify-content: flex-end;align-items: center; margin: 28px 0">
+        <div class="download-file-button">
+            <div ng-click="vm.downloadFile('csv')">
+                <img src="content/images/icons/csv.svg" alt="">
+            </div>
+            <div ng-click="vm.downloadFile('xls')">
+                <img src="content/images/icons/xls.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+
+<div class="b-form__results">
+    <table class="b-form__results-table">
+        <thead class="head-table">
+        <tr>
+            <th>ID</th>
+            <th ng-click="vm.sortPartner('Nachname')">
+                <div>
+                    <span>Name</span>
+                    <i ng-show="vm.sort_params.orderBy==='Nachname'"
+                       class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Street')">
+                <div>
+                    <span>Straße Nr</span>
+                     <i ng-show="vm.sort_params.orderBy==='Street'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('plz')">
+                <div>
+                    <span>PLZ</span>
+                     <i ng-show="vm.sort_params.orderBy==='plz'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('ort')">
+                <div>
+                    <span>Ort</span>
+                     <i ng-show="vm.sort_params.orderBy==='ort'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('CreateDate')">
+                <div>
+                    <span>Angelegt am</span>
+                     <i ng-show="vm.sort_params.orderBy==='CreateDate'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Phone')">
+                <div>
+                    <span>Tel.</span>
+                     <i ng-show="vm.sort_params.orderBy==='Phone'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Fax')">
+                <div>
+                    <span>Fax</span>
+                    <i ng-show="vm.sort_params.orderBy==='Fax'"
+                       class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Mobile')">
+                <div>
+                    <span>Handy</span>
+                    <i ng-show="vm.sort_params.orderBy==='Mobile'"
+                       class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Email')">
+                <div>
+                    <span>E-Mail</span>
+                     <i ng-show="vm.sort_params.orderBy==='Email'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('Partners')">
+                <div>
+                    <span>Mitarbeiter</span>
+                     <i ng-show="vm.sort_params.orderBy==='Partners'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+            <th ng-click="vm.sortPartner('AnkerButton')">
+                <div>
+                    <span>Status</span>
+                     <i ng-show="vm.sort_params.orderBy==='AnkerButton'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                </div>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="item in vm.partner_list.data" ng-click="vm.goPartner(item.AdressenId)" style="height: 46px;">
+            <td>{{item.AdressenId}}</td>
+            <td>{{item.Nachname}}<span ng-if="item.Vorname && item.Nachname">,</span>{{item.Vorname}}</td>
+            <td>{{item.Street}}</td>
+            <td>{{item.plz}}</td>
+            <td>{{item.ort}}</td>
+            <td ng-init="item.CreateDate = vm.convertDate(item.CreateDate)">{{item.CreateDate}}</td>
+            <td>{{item.Phone}}</td>
+            <td>{{item.Fax}}</td>
+            <td>{{item.Mobile}}</td>
+            <td>{{item.Email}}</td>
+            <td>{{item.PartnerName}}</td>
+            <td>
+                <div class="rating">
+                    <a title="Bronze" ng-if="item.AnkerButton === 1" class="bronze active"></a>
+                    <a title="Silver" ng-if="item.AnkerButton === 2" class="silver active"></a>
+                    <a title="Gold" ng-if="item.AnkerButton === 3" class="gold active"></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div ng-if="vm.loading" class="loading" style="text-align: center;margin: 100px 0 0 0">
+        <img  src="content/images/loader.gif" style="width: 50px">
+        <h4>Loading</h4>
+    </div>
+</div>
+
+
+<div  style="display: flex; justify-content: center;margin: 20px 0 0 0">
+    <div style="display: flex;flex-direction: column; margin: 0 20px">
+        <label for="">Records on the page</label>
+        <select name="" id="" ng-model="vm.limit_page" ng-change="vm.selectPage('', vm.limit_page)">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+    <div paging
+         page="vm.page"
+         page-size="vm.limit_page"
+         total="vm.partner_list.total"
+         paging-action="vm.selectPage(page)"
+         style="text-align: center">
+    </div>
+</div>
+</div>

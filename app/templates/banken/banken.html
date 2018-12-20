@@ -1,0 +1,273 @@
+<div class="container banken-page">
+    <div class="b-tabs">
+        <div class="b-tabs__container">
+            <!--bank list  START-->
+            <div class="first_form clearfix">
+                <div class="b-tabs__block-left">
+                    <div class="b-form__title-dark b-form__title"><span>Bank</span>
+
+                        <span class="kinder" ng-click="vm.newBank()">
+                                    <img class="btn btn__plus btn--light" src="content/images/icons/plus.png"
+                                         alt="plus_btn">
+                                </span>
+                    </div>
+                    <div class="b-form__block">
+                        <input ng-model="vm.search" placeholder="suchen" style="width: 100%">
+                        <div class="b-tabs__table-info">
+                            <div class="block-table">
+                                <div ng-if="vm.download" class="loading">
+                                    <img  src="content/images/loader.gif">
+                                    <h4>Loading</h4>
+                                </div>
+
+                                <table>
+                                    <tbody>
+                                    <tr ng-repeat="item in  vm.bankList | filter:vm.search"
+                                        ng-click="vm.selectBank(item)">
+                                        <td>
+                                            <a href="" ng-if="item.Name">{{item.Name}}</a>
+                                            <a href="" ng-if="!item.Name">undefined</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--bank list  END-->
+
+                <div class="b-tabs__block-right">
+                    <div class="b-form__title-dark b-form__title">
+                        <span>Firmendaten</span> <span>Kunden-Nr {{vm.selectedBank.BankanschriftId}}</span>
+                    </div>
+                    <div class="rating" style="width: 100%;justify-content: flex-end;margin: 10px 0">
+                        <a title="Bronze" class="bronze {{vm.selectedBank.AnkerButton === 1 ? 'active' : ''}}" ng-click="vm.changeRating(1)"></a>
+                        <a title="Silver" class="silver {{vm.selectedBank.AnkerButton === 2 ? 'active' : ''}}" ng-click="vm.changeRating(2)"></a>
+                        <a title="Gold" class="gold {{vm.selectedBank.AnkerButton === 3 ? 'active' : ''}}" style="margin: 0" ng-click="vm.changeRating(3)"></a>
+                    </div>
+
+                    <div class="b-form__half-col b-form__half-col--first">
+                        <h4 class="b-form__sub-header">Firmendaten</h4>
+                        <div class="b-form__block">
+
+                        <span class="b-form__input">
+                                    <label for="famili">Anrede</label>
+                                    <select id="famili" class="gwt-ListBox" ng-model="vm.selectedBank.Anrede">
+                                    <option value="herr">Herr</option>
+                                    <option value="frau">Frau</option>
+                                    </select>
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="name_bank">Firmenname</label>
+                            <input ng-model="vm.selectedBank.Name" id="name_bank">
+                        </span>
+                            <span class="b-form__input">
+                              <label for="firmenzusatz">Firmenzusatz</label>
+                              <input ng-model="vm.selectedBank.FirmAddition" id="firmenzusatz">
+                        </span>
+                            <span class="b-form__input">
+                              <label>Erstellt am</label>
+                              <input type="date"
+                                     ng-model="vm.selectedBank.CreateDate" disabled
+                                     style="width: 100%">
+                        </span>
+
+                        </div>
+
+                        <h4 class="b-form__sub-header"> Adressdaten</h4>
+                        <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label>Straße</label>
+                            <input ng-model="vm.selectedBank.Street">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="plz">PLZ/Ort</label>
+                            <input ng-model="vm.selectedBank.plz" id="plz">
+                            <input ng-model="vm.selectedBank.ort" id="ort">
+                        </span>
+
+                            <span class="b-form__input ">
+                            <label for="plz-Postf">PLZ(Postf)</label>
+                            <input ng-model="vm.selectedBank.POboxBerufich" id="plz-Postf">
+                            <input ng-model="vm.selectedBank.PLZpobox" id="ort-Postf">
+                        </span>
+                        </div>
+
+                        <h4 class="b-form__sub-header"> Bankdaten</h4>
+                        <div class="b-form__block">
+                         <span class="b-form__input">
+                            <label for="Konto">Konto-Nr</label>
+                            <input ng-model="vm.selectedBank.AccountNr" id="Konto">
+                         </span>
+
+                            <span class="b-form__input">
+                             <label>BLZ</label>
+                             <input ng-model="vm.selectedBank.BLZ">
+                        </span>
+                        </div>
+
+                    </div>
+
+                    <div class="b-form__half-col b-form__half-col--last">
+                        <h4 class="b-form__sub-header"> Internetdaten</h4>
+                        <div class="b-form__block">
+                          <span class="b-form__input">
+                            <label for="street">E-Mail 2</label>
+                            <input ng-model="vm.selectedBank.Email2" id="street">
+                          </span>
+
+                            <span class="b-form__input">
+                            <label for="Mail">E-Mail 3</label>
+                            <input ng-model="vm.selectedBank.Email3" id="Mail">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="Homepage">Homepage</label>
+                            <input ng-model="vm.selectedBank.HomePage" id="Homepage">
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="Seite">FTP-Seite</label>
+                            <input ng-model="vm.selectedBank.FTPpage" id="Seite">
+                        </span>
+                        </div>
+
+                        <h4 class="b-form__sub-header"> Kontaktdaten</h4>
+                        <div class="b-form__block">
+                        <span class="b-form__input phone-field">
+                            <label for="tel1">Telefon</label>
+                            <input ng-model="vm.selectedBank.Phone" id="tel1">
+                            <a class="material-icons" href="tel:{{vm.selectedBank.Phone}}">call</a>
+                        </span>
+
+                            <span class="b-form__input">
+                            <label for="tel2">Fax</label>
+                            <input ng-model="vm.selectedBank.Fax" id="tel2">
+                        </span>
+
+                            <span class="b-form__input phone-field">
+                            <label for="eMail">Handy</label>
+                            <input ng-model="vm.selectedBank.Mobile" id="eMail">
+                            <a class="material-icons" href="tel:{{vm.selectedBank.Mobile}}">call</a>
+                        </span>
+                        </div>
+
+                        <!--<h4 class="b-form__sub-header">Comment</h4>-->
+                        <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label for="comment">Kommentar</label>
+                            <textarea ng-model="vm.selectedBank.Comment" id="comment"></textarea>
+                        </span>
+
+                        </div>
+                    </div>
+
+                    <div class="second_form clearfix">
+
+                        <h4 class="b-form__sub-header bankverbindung">
+                            <img class="btn btn__plus btn--light"
+                                 src="content/images/icons/plus.png"
+                                 ng-click="vm.addPersons()"
+                                 alt="plus_btn"> Ansprechpartner</h4>
+
+
+                        <div class="b-form__block partner-block" ng-repeat="item in vm.selectedBank.ContactPersons track by $index" ng-if=" vm.selectedBank.ContactPersons">
+                        <span class="b-form__input partner-block">
+
+                          <div class="b-form__col">
+                              <span class="b-form__input b-form__checkbox">
+                                   <label>Active</label>
+                                 <input name="prefix" type="checkbox" ng-model="item.Active">
+                              </span>
+                            </div>
+
+                        <span class="b-form__input">
+                                    <label for="famili">Anrede</label>
+                                    <select id="" class="gwt-ListBox" ng-model="item.Salutation">
+                                    <option value="Herr">Herr</option>
+                                    <option value="Frau">Frau</option>
+                                    </select>
+                        </span>
+
+
+                             <div class="b-banking__item b-banking__iban">
+                            <span class="b-form__input">
+                                <label for="iban">Vorname</label>
+                                <input id="iban" type="text" ng-model="item.Vorname">
+                            </span>
+                             </div>
+
+                             <div class="b-banking__item b-banking__bic">
+                            <span class="b-form__input">
+                                <label for="bic">Nachname</label>
+                                <input id="bic" type="text" ng-model="item.Name">
+                            </span>
+                              </div>
+
+                             <div class="b-banking__item b-banking__num">
+                            <span class="b-form__input">
+                                <label for="num">Telefon</label>
+                                <input id="num" type="text" ng-model="item.Phone">
+                            </span>
+                              </div>
+
+                             <div class="b-banking__item b-banking__blz">
+                            <span class="b-form__input">
+                                <label for="blz">Fax</label>
+                                <input id="blz" type="text" ng-model="item.Fax">
+                            </span>
+                             </div>
+                             <img src="content/images/icons/trash_basket.png"
+                                 class="btn btn__trash btn--light bank-delete"
+                                     ng-click="vm.deleteContactPersons($index, item)">
+
+                        </span>
+                        </div>
+                    </div>
+
+
+                    <div class="b-form__half-col b-form__half-col--last">
+
+                        <div ng-if="!vm.showNewBank" class="selected-bank button-block">
+                            <button class="save" ng-click="vm.updateBank(vm.selectedBank)">Speichern</button>
+                            <button ng-click="vm.removeDialog(vm.selectedBank)">Löschen</button>
+                            <button class="add-document-button" ng-click="vm.sendMessage()">Briefvorlagen</button>
+
+                            <div class="select-client-block">
+                                <input ng-focus="vm.show_autocomplete = true" ng-change="vm.searchVorgangs(vm.autocompleteText)" ng-blur="vm.blurAutocomplete()" type="text" ng-model="vm.autocompleteText">
+
+                                <ul ng-show="vm.show_autocomplete && vm.autocompleteText.length > 2">
+                                    <li ng-click="vm.selectClientForBriefvorlage(client); vm.show_autocomplete = false"
+                                        ng-repeat="client in vm.allVorgangsList | filter:vm.autocompleteText">{{client.Vorname}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="briefvorlagen-dialog-window" ng-if="vm.DialogWindow">
+                                <h4>Wirklich löschen?</h4>
+                                <br>
+                                <div class="button-block">
+                                    <button ng-click="vm.removeBank()">Ja</button>
+                                    <button ng-click="vm.DialogWindow = false">Nein</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div ng-if="vm.showNewBank" class="add-bank button-block">
+                            <button class="save" ng-click="vm.addBank(vm.selectedBank)">
+                                Bank hinzufügen
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

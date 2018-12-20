@@ -1,0 +1,33 @@
+<div class="b-tabs__container">
+    <div class="b-form__title-dark b-form__title" style="display: flex">
+        Anträge/Anfragen {{vm.userCredentials.fname}} - {{vm.transactionId}}
+        <change-partner partner="vm.partner" vorgangid="vm.vorgangid"></change-partner>
+    </div>
+</div>
+
+<div class="second_form child-form">
+    <div class="b-form__block new-antrag-block">
+        <div class="add-antrag-button">
+            <button class="btn btn--light mr-10" id="antrag" ng-click="vm.addAntrag()">
+                Neuer Antrag
+            </button>
+        </div>
+
+        <div ng-if="vm.showDialog" class="change-partner-dialog-window">
+            <h4>Wirklich ändern?</h4>
+            <div class="button-block">
+                <button ng-click="vm.checkedPartner(vm.partnergeschaftList)">Ja</button>
+                <button ng-click="vm.showDialog = false">Nein</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="first_form clearfix third_tab_item">
+    <div class="b-form__block">
+        <antrag ng-repeat="antrag in vm.data.antrags" data-parent="antrag" data-array="vm.data.antrags"
+                data-banks="{{vm.banks}}"></antrag>
+    </div>
+</div>
+</div>

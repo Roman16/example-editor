@@ -1,0 +1,13 @@
+<main class="b-main">
+    <div class="container">
+        <div class="b-tabs">
+            <ul class="b-tabs__titles clearfix">
+                <li class="b-tabs__titles-item b-tabs__home" ng-class="vm.current_controller === 'BankenController' && 'b-tabs__titles-item--current'" ui-sref="app.adressenverwaltung.banken"><span>Banken</span></li>
+                <li ng-hide="vm.params_id === ''" class="b-tabs__titles-item b-tabs__big-user" ng-class="vm.current_controller === 'PartnerController' && 'b-tabs__titles-item--current'" ui-sref="app.adressenverwaltung.partner"><span>Partner</span></li>
+                <li ng-show="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home" ng-class="vm.current_controller === 'BankenController' && 'b-tabs__titles-item--current'" ><span>Banken</span></li>
+                <li ng-show="vm.params_id === ''" class="b-tabs__titles-item b-tabs__big-user" ng-class="vm.current_controller === 'PartnerController' && 'b-tabs__titles-item--current'"><span>Partner</span></li>
+            </ul>
+            <div ui-view style="clear: both;"></div>
+        </div>
+    </div>
+</main>

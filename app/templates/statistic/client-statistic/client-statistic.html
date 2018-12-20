@@ -1,0 +1,188 @@
+<div class="statistic-page">
+    <div style="display: flex;justify-content: space-between;align-items: center; margin: 20px 0">
+        <div style="display: flex">
+            <div class="b-form__input" style="margin: 0 20px 0 0">
+                <label for="">*Abgerechnet from</label>
+                <input type="date" ng-model="vm.date_from" ng-change="vm.sortClient()">
+            </div>
+
+            <div class="b-form__input">
+                <label for="">*Abgerechnet to</label>
+                <input type="date" ng-model="vm.date_to" ng-change="vm.sortClient()">
+            </div>
+        </div>
+
+        <div class="download-file-button">
+            <div ng-click="vm.downloadFile('csv')">
+                <img src="content/images/icons/csv.svg" alt="">
+            </div>
+            <div ng-click="vm.downloadFile('xls')">
+                <img src="content/images/icons/xls.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="b-form__results">
+        <table class="b-form__results-table">
+            <thead class="head-table">
+            <tr>
+                <th>ID</th>
+                <th ng-click="vm.sortClient('second_name')">
+                    <div>
+                        <span>Name</span>
+                        <i ng-show="vm.sort_params.orderBy==='second_name'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('street')">
+                    <div>
+                        <span>Straße, Nr.</span>
+                        <i ng-show="vm.sort_params.orderBy==='street'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('plz')">
+                    <div>
+                        PLZ
+                        <i ng-show="vm.sort_params.orderBy==='plz'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('ort')">
+                    <div>
+                        <span>Ort</span>
+                        <i ng-show="vm.sort_params.orderBy==='ort'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('date_birthd')">
+                    <div>
+                        <span>Geburtsdatum</span>
+                        <i ng-show="vm.sort_params.orderBy==='date_birthd'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('phone')">
+                    <div>
+                        <span>Tel.</span>
+                        <i ng-show="vm.sort_params.orderBy==='phone'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('email')">
+                    <div>
+                        <span>E-Mail</span>
+                        <i ng-show="vm.sort_params.orderBy==='email'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('Partner')">
+                    <div>
+                        <span>Partner</span>
+                        <i ng-show="vm.sort_params.orderBy==='Partner'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('erstelltam')">
+                    <div>
+                        <span>Erstellt am</span>
+                        <i ng-show="vm.sort_params.orderBy==='erstelltam'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('Bank')">
+                    <div>
+                        <span>Bank</span>
+                        <i ng-show="vm.sort_params.orderBy==='Bank'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('abgerechnetDate')">
+                    <div>
+                        <span>Abg. am</span>
+                        <i ng-show="vm.sort_params.orderBy==='abgerechnetDate'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('betrag')">
+                    <div>
+                        <span>Betrag</span>
+                        <i ng-show="vm.sort_params.orderBy==='betrag'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('provisionBerater_eur')">
+                    <div>
+                        <span>Beraterprov.</span>
+                        <i ng-show="vm.sort_params.orderBy==='provisionBerater_eur'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('gesamtprovision_eur')">
+                    <div>
+                        <span>Gesamtprov</span>
+                        <i ng-show="vm.sort_params.orderBy==='gesamtprovision_eur'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+                <th ng-click="vm.sortClient('AnkerButton')">
+                    <div>
+                        <span>Status</span>
+                        <i ng-show="vm.sort_params.orderBy==='AnkerButton'"
+                           class="material-icons {{vm.sort_params.orderType==='descending' ? 'descending' : ''}}">keyboard_arrow_down</i>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in vm.client_list.data" ui-sref="app.tabs.antragsteller({id: item.VorgangId})" style="height: 46px;">
+                <td>{{item.Code}}</td>
+                <td>{{item.second_name}}<span ng-if="item.vorname">,</span>{{item.vorname}}</td>
+                <td>{{item.street}}<span ng-if="item.house">,</span> {{item.house}}</td>
+                <td>{{item.plz}}</td>
+                <td>{{item.ort}}</td>
+                <td ng-init="item.date_birthd = vm.convertDate(item.date_birthd)">{{item.date_birthd}}</td>
+                <td>{{item.phoneCode}}<span ng-if="item.phoneCode">-</span>{{item.phone}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.Partner}}</td>
+                <td ng-init="item.erstelltam = vm.convertDate(item.erstelltam)">{{item.erstelltam}}</td>
+                <td>{{item.Bank}}</td>
+                <td ng-init="item.abgerechnetDate = vm.convertDate(item.abgerechnetDate)">{{item.abgerechnetDate}}</td>
+                <td>{{item.betrag | replaceComma}}</td>
+                <td>{{item.provisionBerater_eur | replaceComma}}</td>
+                <td>{{item.gesamtprovision_eur | replaceComma}}</td>
+                <td>
+                    <div class="rating">
+                        <a title="Bronze" ng-if="item.AnkerButton === 1" class="bronze active"></a>
+                        <a title="Silver" ng-if="item.AnkerButton === 2" class="silver active"></a>
+                        <a title="Gold" ng-if="item.AnkerButton === 3" class="gold active"></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="vm.loading" class="loading" style="text-align: center;margin: 20px">
+            <img src="content/images/loader.gif" style="width: 50px">
+            <h4>Loading</h4>
+        </div>
+    </div>
+
+
+    <div ng-if="vm.client_list.data" style="display: flex; justify-content: center;margin: 20px 0 0 0 ">
+        <div style="display: flex;flex-direction: column; margin: 0 20px">
+            <label for="">Records on the page</label>
+            <select name="" id="" ng-model="vm.limit_page" ng-change="vm.selectPage('', vm.limit_page)">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+        <div paging
+             page="vm.page"
+             page-size="vm.limit_page"
+             total="vm.client_list.total"
+             paging-action="vm.selectPage(page)"
+             style="text-align: center">
+        </div>
+    </div>
+</div>

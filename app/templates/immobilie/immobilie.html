@@ -1,0 +1,179 @@
+<div class="b-tabs__container">
+    <div class="b-form__title-dark b-form__title" style="display: flex">Objektdaten {{vm.userCredentials.fname}} - {{vm.transactionId}}
+        <change-partner partner="vm.partner" vorgangid="vm.vorgangid"></change-partner></div>
+    <div class="second_form clearfix">
+
+        <div class="b-form__block b-banking banking clearfix">
+            <span class="b-form__input">
+                <label for="darl" class="darl">Wofür soll das Darlehen verwendet werden?</label>
+                <select ng-model="vm.immobilieObject.wofur" id="darl">
+                    <option value="1">Neubau (eigenes Bauvorhaben)</option>
+                    <option value="2" selected="selected">Kauf</option>
+                    <option value="3">Kauf (Neubau vom Bauträger)</option>
+                    <option value="4">Modernisierung (Umbau / Anbau)</option>
+                    <option value="5">Anschlussfinanzierung</option>
+                    <option value="6">Kapitalbeschaffung</option>
+                    <option value="7">Umschuldung</option>
+                </select>
+            </span>
+        </div>
+
+        <div class="first_form clearfix">
+            <div class="wrap-form">
+                <basisangaben data-parent="vm.immobilieObject.basisangaben"/>
+            </div>
+            <div class="wrap-form">
+                <nutzung data-nutzung="vm.immobilieObject.nutzung" data-zusatzliche="vm.immobilieObject.zusatzliche"/>
+            </div>
+        </div>
+
+        <div class="third_form clearfix">
+            <h4 class="b-form__sub-header">Stellplätze: <span>Sind Stellplätze oder Garagen vorhanden?</span>
+            </h4>
+            <div class="b-form__list-view b-form__list-view--horizontal horizontal clearfix">
+                <div class="b-form__list-view-item"
+                     ng-repeat="item in vm.menu">
+                    <a ng-click="vm.addStellplatze(item)">
+                        <img class="btn btn__plus btn--light"
+                             src="content/images/icons/plus.png"
+                             alt="plus_btn">
+                        {{item.name}}
+                    </a>
+                </div>
+            </div>
+
+            <div class="b-form__block" ng-repeat="item in vm.immobilieObject.StellplatzeList track by $index">
+                <div class="b-form__group b-buy"
+                     ng-include="'templates/immobilie/stellplatze/'+item.propId+'.html'"></div>
+            </div>
+        </div>
+
+        <!--Grundbuchangaben-->
+        <div class="second_form clearfix">
+            <h4 class="b-form__sub-header">Grundbuchangaben:</h4>
+            <h4 class="b-form__sub-header bankverbindung">
+                <img class="btn btn__plus btn--light"
+                     src="content/images/icons/plus.png"
+                     ng-click="vm.addGrundbuchdaten()"
+                     ng-hide="vm.immobilieObject.Grundbuchdaten.isOpened"
+                     alt="plus_btn"> Grundbuchdaten erfassen</h4>
+            <div class=" b-form__block gr-erfassen" ng-show="vm.immobilieObject.Grundbuchdaten.isOpened">
+                <span class="b-form__address clearfix ">
+                            <span class="b-form__input b-form__address-short">
+                                <label for="grunduch" class="grunduch">Grundbuch von (Ort)</label>
+                                <input id="grunduch" ng-model="vm.immobilieObject.Grundbuchdaten.grunduch" type="text">
+                            </span>
+                            <span class="b-form__input b-form__address-short">
+                                <label for="blatt" class="blatt">Blatt (Band: optional)</label>
+                                <input id="blatt" ng-model="vm.immobilieObject.Grundbuchdaten.blatt" type="text">
+                            </span>
+                        </span>
+
+                <h4 class="b-form__sub-header">
+                    Flurstücke:<span> Welche Flurstücke sind vorhanden?</span></h4>
+                <div class="b-form__list-view b-form__list-view--horizontal clearfix">
+                    <div class="b-form__list-view-item">
+                        <a>
+                            <img class="btn btn__plus btn--light"
+                                 src="content/images/icons/plus.png"
+                                 alt="plus_btn"
+                                 ng-click="vm.addFlurstuck()">
+                            Weiteres Flurstück erfassen
+                        </a>
+                    </div>
+
+                </div>
+                <style>
+                    .short_input {
+                        width: 100px !important;
+                    }
+
+                    .short_span {
+                        width: 120px !important;
+                    }
+                </style>
+                <div style="background: rgb(255,255,255);padding: 5px 5px;margin: 0 1.5px 0 1px;"
+                     ng-repeat="item in vm.immobilieObject.Grundbuchdaten.Flurstuck track by $index">
+                    <span class="b-form__address address clearfix ">
+                            <span class="b-form__input short_span b-form__address-short  flur">
+                                <label for="flur">Flur</label>
+                                <input ng-model="item.flur" class="short_input" id="flur" type="text">
+                            </span>
+                            <span class="b-form__input short_span b-form__address-short">
+                                <label for="flurstuck">Flurstück</label>
+                                <input ng-model="item.flurstuck" class="short_input" id="flurstuck" type="text">
+                            </span>
+                        <span class="b-form__input short_span b-form__address-short anteil">
+                                <label for="anteil">Anteil am Flurstück</label>
+                                <input ng-model="item.anteil" class="short_input" id="anteil" type="text">
+                            </span>
+                        <span class="b-form__input short_span b-form__address-short">
+                                <label for="anteil2"></label>
+                                <input ng-model="item.anteil2" class="short_input" id="anteil2" type="text">
+                            </span>
+                        <span class="b-form__input short_span b-form__address-short b-form__squere">
+                                <label for="des_flurs">Größe des Flurstücks</label>
+                                <input ng-model="item.desFlurs" class="short_input" id="des_flurs" type="text">
+                            </span>
+                            <span class="b-form__input short_span b-form__address-short trash">
+                                <img src="content/images/icons/trash_basket.png"
+                                     class="btn btn__trash btn--light"
+                                     style="margin-top: 15px;"
+                                     ng-click="vm.deleteFlurstuck($index)">
+                            </span>
+                        </span>
+                </div>
+                <h4 class="b-form__sub-header">
+                    <img class="btn btn__plus btn--light"
+                         src="content/images/icons/plus.png"
+                         ng-click="vm.addRechte()"
+                         ng-hide="vm.immobilieObject.Rechte.isOpened"
+                         alt="plus_btn">
+                    Rechte in Abteilung II vorhanden?
+                </h4>
+                <div ng-show="vm.immobilieObject.Rechte.isOpened"
+                     style="background: rgb(255,255,255);padding: 5px 5px;margin: 0 1.5px 0 1px;">
+                    <span class="b-form__address clearfix ">
+                            <span class="b-form__input short_span b-form__address-short">
+                                <label for="betrag">Betrag (wertmindernd)</label>
+                                <input ng-model="vm.immobilieObject.Rechte.betrag" class="short_input" id="betrag"
+                                       type="text">
+                            </span>
+                            <span class="b-form__input short_span b-form__address-short">
+                                <label for="beschreibung">Beschreibung</label>
+                                <input ng-model="vm.immobilieObject.Rechte.beschreibung" class="short_input"
+                                       id="beschreibung" type="text">
+                            </span>
+                        </span>
+                </div>
+                <span class="b-form__address clearfix ">
+                            <span class="b-form__input b-form__address-short">
+                                <label for="anmerkungen">Weitere Anmerkungen zum Grundbuch</label>
+                                <textarea ng-model="vm.immobilieObject.Rechte.anmerkungen" id="anmerkungen"></textarea>
+                            </span>
+                        </span>
+                <div class="b-form__list-view b-form__list-view--horizontal clearfix">
+                    <h4 class="b-form__sub-header">
+                        Darlehen:<span> Sind Rechte in Abteilung III im Grundbuch vorhanden?</span></h4>
+
+                    <div class="b-form__list-view-item">
+                        <a>
+                            <img class="btn btn__plus btn--light"
+                                 src="content/images/icons/plus.png"
+                                 alt="plus_btn"
+                                 ng-click="vm.addDarlehen()">
+                            Weiteres Darlehen erfassen
+                        </a>
+                    </div>
+
+                </div>
+            
+                <weitere-darlehen data-array="vm.immobilieObject.Grundbuchdaten.darlehens"></weitere-darlehen>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

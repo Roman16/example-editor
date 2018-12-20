@@ -1,0 +1,47 @@
+<div class="b-form__block" ng-repeat="kinder in vm.array track by $index">
+    <div class="b-form__group b-form__child">
+                            <span class="b-form__input b-form__child-item">
+                                <label for="name">Name</label>
+                                <input id="name" ng-model="kinder.name" type="text">
+                            </span>
+        <span class="b-form__input b-form__child-item">
+                                <label for="birthday2">Geburtsdatum</label>
+                                <input id="birthday2" ng-init="kinder.geburtsdatum=vm.convertAllDateFromString(kinder.geburtsdatum)" ng-model="kinder.geburtsdatum" placeholder="dd.mm.yyyy" type="date">
+                            </span>
+        <div class="b-form__child-item">
+            <h4>Kindergeld?</h4>
+            <span class="b-form__radio">
+                                    <input ng-model="kinder.kindergeld" value="1" id="ja2" type="radio">
+                                    <label for="ja2">ja</label>
+                                </span>
+            <span class="b-form__radio">
+                                    <input ng-model="kinder.kindergeld" value="0" id="nein" type="radio">
+                                    <label for="nein">nein</label>
+                                </span>
+        </div>
+        <div class="b-form__child-item">
+            <h4>Unterhaltseinnahmen?</h4>
+            <span class="b-form__radio">
+                                    <input ng-model="kinder.unterhaltseinnahmen" value="0" id="keine" type="radio">
+                                    <label for="keine">keine</label>
+                                </span>
+            <span class="b-form__radio">
+                                    <input ng-model="kinder.unterhaltseinnahmen" value="1" id="ja" type="radio">
+                                    <label for="ja">ja</label>
+                                </span>
+        </div>
+        <span class="b-form__input b-form__child-item b-form__euro" ng-if="kinder.unterhaltseinnahmen=='1'">
+                                <label for="betrag">Betrag</label>
+                                <input format="currency" id="betrag" ng-model="kinder.betrag" type="text" ng-blur="kinder.betrag = vm.parseEuroFormat(kinder.betrag)">
+                            </span>
+
+
+        <div class="b-buy__item b-buy__options kinder_b-buy" style="margin-right: 10px;">
+                                <span class="b-form__input">
+                                    <img src="content/images/icons/trash_basket.png"
+                                         class="btn btn__trash btn--light"
+                                         ng-click="vm.deleteKinder($index)">
+                                </span>
+        </div>
+    </div>
+</div>

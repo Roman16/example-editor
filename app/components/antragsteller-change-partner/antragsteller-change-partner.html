@@ -1,0 +1,29 @@
+<div class="kooperationspartner" ng-if="vm.partner">
+    Kooperationspartner
+    <span ng-if="!vm.selectPartner" class="partner-name">
+        {{vm.partner}}
+
+        <span class="edit-block" ng-click="vm.selectPartner=true">
+             <i class="material-icons">create</i>
+        </span>
+    </span>
+
+    <select id="partners" ng-model="vm.partnergeschaftList" ng-if="vm.selectPartner">
+        <option ng-value="partner.AdressenId"
+                ng-repeat="partner in vm.partners">
+            {{partner.Nachname+','+partner.Vorname}}
+        </option>
+    </select>
+
+    <span ng-click=" vm.showDialog = true" ng-if="vm.selectPartner">
+        <i class="material-icons">done</i>
+    </span>
+
+    <div ng-if="vm.showDialog" class="change-partner-dialog-window">
+        <h4>Wirklich ändern?</h4>
+        <div class="button-block">
+            <button ng-click="vm.checkedPartner(vm.vorgangid)">Ja</button>
+            <button ng-click="vm.showDialog = false">Nein</button>
+        </div>
+    </div>
+</div>

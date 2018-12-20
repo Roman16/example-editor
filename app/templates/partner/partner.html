@@ -1,0 +1,552 @@
+<div class="container partner-page">
+    <div class="b-tabs">
+        <div class="b-tabs__container">
+            <div class="first_form clearfix">
+                <!--partner list  START-->
+                <div class="b-tabs__block-left">
+                    <div class="b-form__title-dark b-form__title"><span>Partner</span>
+                        <span class="kinder" ng-click="vm.newPartner()">
+                                    <img class="btn btn__plus btn--light" src="content/images/icons/plus.png"
+                                         alt="plus_btn">
+                                </span>
+                    </div>
+                    <input ng-model="vm.search" placeholder="suchen" style="width: 100%">
+                    <div class="b-form__block">
+                        <div class="b-tabs__table-info">
+                            <div class="block-table">
+                                <div ng-show="vm.download" class="loading">
+                                    <img src="content/images/loader.gif">
+                                    <h4>Loading</h4>
+                                </div>
+                                <table>
+                                    <tbody ng-show="!vm.download">
+                                    <tr ng-repeat="item in  vm.partnerList | filter: vm.search track by $index"
+                                        ng-click="vm.selectPartner(item)">
+                                        <td>
+                                            <a ng-if="item.Vorname !== ' '" href="">{{item.Nachname}}<span
+                                                    ng-if="item.Nachname !== '' ">,</span> {{item.Vorname}}</a>
+                                            <a ng-if="item.Vorname == '' && item.Nachname == ''" href="">undefined</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="partner-group">
+                                <div class="b-form__title-dark b-form__title"><span>ultima Gruppe</span></div>
+                                <div class="block-table group-table">
+                                    <table>
+                                        <tbody ui-sortable="vm.sortableOptions" class="apps-container screen first"
+                                               ng-model="vm.groupeList">
+                                        <tr ng-repeat="item in  vm.groupeList"
+                                            ng-click="vm.selectGroupUser(item.BenutzerId)">
+                                            <td>
+                                                <a>{{item.Benutzername}}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--partner list  END-->
+                <div class="b-tabs__block-right">
+                    <div class="b-form__title">
+                        <div class="tab-partner" style="display: flex">
+                            <button class="add-document-button"
+                                    ng-click="vm.showTemplate = 1" ng-class="vm.showTemplate === 1 ? 'active' : ''">
+                                Partnerdaten
+                            </button>
+                            <button class="add-document-button"
+                                    ng-click="vm.showTemplate = 2" ng-class="vm.showTemplate === 2 ? 'active' : ''"
+                                    ng-if="vm.usedClient">
+                                Persönliches
+                            </button>
+                            <button class="add-document-button"
+                                    ng-click="vm.showTemplate = 3"
+                                    ng-class="vm.showTemplate === 3 ? 'active' : ''">
+                                Klienten
+                            </button>
+
+                            <div class="rating" ng-if="vm.usedClient">
+                                <a title="Bronze" class="bronze {{vm.selectedPartner.AnkerButton === 1 ? 'active' : '' }}" ng-click="vm.changeRating(1)"></a>
+                                <a title="Silver" class="silver {{vm.selectedPartner.AnkerButton === 2 ? 'active' : '' }}" ng-click="vm.changeRating(2)"></a>
+                                <a title="Gold" class="gold {{vm.selectedPartner.AnkerButton === 3 ? 'active' : '' }}" ng-click="vm.changeRating(3)"></a>
+                            </div>
+                        </div>
+
+
+                        <span class="id-partner"
+                              ng-if="vm.usedClient">Kunden-Nr {{vm.selectedPartner.AdressenId}}</span>
+                        <span class="id-partner"
+                              ng-if="!vm.usedClient">Benutzer-Nr {{vm.selectedPartner.BenutzerId}}</span>
+                    </div>
+
+                    <div ng-show="vm.showTemplate === 1">
+                        <div class="b-form__half-col b-form__half-col--first">
+                            <h4 class="b-form__sub-header">Firmendaten</h4>
+                            <div class="b-form__block">
+
+                        <span class="b-form__input">
+                                    <label>Anrede</label>
+                                    <select class="gwt-ListBox" ng-model="vm.selectedPartner.Anrede">
+                                    <option value="herr">Herr</option>
+                                    <option value="frau">Frau</option>
+                                    </select>
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>Firmenname</label>
+                            <input ng-model="vm.selectedPartner.FirmName">
+                        </span>
+
+                                <span class="b-form__input">
+                              <label>Firmenzusatz</label>
+                              <input ng-model="vm.selectedPartner.NameSuffix">
+                        </span>
+
+                                <span class="b-form__input" ng-if="vm.usedClient">
+                              <label>Erstellt am</label>
+                              <input type="date"
+                                     ng-init="vm.selectedPartner.CreateDate=vm.convertAllDateFromString(vm.selectedPartner.CreateDate)"
+                                     ng-model="vm.selectedPartner.CreateDate" disabled
+                                     style="width: 100%">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header">Mitarbeiter</h4>
+                            <div class="b-form__block">
+                                <div ui-sortable="vm.sortableOptions"
+                                     class="apps-container connected-apps-container screen" ng-model="vm.arrPartner">
+                                    <div class="app" ng-repeat="item in vm.arrPartner track by $index">
+                                        <span>{{item.Benutzername}}</span>
+                                        <div class="delete-partner" ng-click="vm.deletePartner($index)">
+                                            <i class="material-icons">close</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="b-form__sub-header"> Adressdaten</h4>
+                            <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label>Straße</label>
+                            <input ng-model="vm.selectedPartner.Street">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>PLZ/Ort</label>
+                            <input ng-model="vm.selectedPartner.plz" id="plz">
+                            <input ng-model="vm.selectedPartner.ort" id="ort">
+                        </span>
+
+                                <span class="b-form__input ">
+                            <label>PLZ(Postf)</label>
+                            <input ng-model="vm.selectedPartner.POboxBerufich" id="plz-Postf">
+                            <input ng-model="vm.selectedPartner.PLZpobox" id="ort-Postf">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header"> Bankdaten</h4>
+                            <div class="b-form__block">
+                         <span class="b-form__input">
+                            <label>Konto-Nr</label>
+                            <input ng-model="vm.selectedPartner.AccountNr">
+                         </span>
+
+                                <span class="b-form__input">
+                             <label>BLZ</label>
+                             <input ng-model="vm.selectedPartner.BLZ">
+                        </span>
+                            </div>
+
+                        </div>
+
+                        <div class="b-form__half-col b-form__half-col--last">
+                            <h4 class="b-form__sub-header"> Internetdaten</h4>
+                            <div class="b-form__block">
+                          <span class="b-form__input">
+                            <label>E-Mail 2</label>
+                            <input ng-model="vm.selectedPartner.Email2">
+                          </span>
+
+                                <span class="b-form__input">
+                            <label>E-Mail 3</label>
+                            <input ng-model="vm.selectedPartner.Email3">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>Homepage</label>
+                            <input ng-model="vm.selectedPartner.HomePage">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>FTP-Seite</label>
+                            <input ng-model="vm.selectedPartner.FTPpage">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header"> Internetdaten</h4>
+                            <div class="b-form__block">
+                        <span class="b-form__input phone-field">
+                            <label>Telefon</label>
+                            <input ng-model="vm.selectedPartner.Phone">
+                            <a class="material-icons" href="tel:{{vm.selectedPartner.Phone}}">call</a>
+                        </span>
+
+                         <span class="b-form__input">
+                            <label>Fax</label>
+                            <input ng-model="vm.selectedPartner.Fax">
+                        </span>
+
+                                <span class="b-form__input phone-field">
+                            <label>Handy</label>
+                            <input ng-model="vm.selectedPartner.Mobile">
+                            <a class="material-icons" href="tel:{{vm.selectedPartner.Mobile}}">call</a>
+                        </span>
+                            </div>
+
+                            <!--<h4 class="b-form__sub-header">Comment</h4>-->
+                            <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label>Kommentar</label>
+                            <textarea ng-model="vm.selectedPartner.Comment" style="height: 108px;"></textarea>
+                        </span>
+                            </div>
+
+                        </div>
+
+                        <div class="second_form clearfix">
+
+                            <h4 class="b-form__sub-header bankverbindung">
+                                <img class="btn btn__plus btn--light"
+                                     src="content/images/icons/plus.png"
+                                     ng-click="vm.addPersons()"
+                                     alt="plus_btn"> Ansprechpartner</h4>
+
+
+                            <div class="b-form__block person-block"
+                                 ng-repeat="item in vm.selectedPartner.ContactPersons track by $index"
+                                 ng-if=" vm.selectedPartner.ContactPersons">
+
+                                <div class="b-form__col">
+                              <span class="b-form__input b-form__checkbox">
+                                   <label>Active</label>
+                                 <input name="prefix" type="checkbox" ng-model="item.Active">
+                              </span>
+                                </div>
+
+
+                                <span class="b-form__input">
+                                    <label for="famili">Anrede</label>
+                                    <select id="famili" class="gwt-ListBox" ng-model="item.Salutation">
+                                    <option value="herr">Herr</option>
+                                    <option value="frau">Frau</option>
+                                    </select>
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Vorname">Vorname</label>
+                            <input ng-model="item.Vorname" id="Vorname">
+                        </span>
+                                <span class="b-form__input">
+                            <label for="Nachname">Nachname</label>
+                            <input ng-model="item.Name" id="Nachname">
+                        </span>
+
+                                <span class="b-form__input">
+                      <label for="date_birthd">Geburtsdatum</label>
+                       <input id="date_birthd" type="date" placeholder="dd.mm.yyyy"
+                              ng-init="item.dtmDate=vm.convertAllDateFromString(item.dtmDate)" ng-model="item.dtmDate"
+                              tabindex="{{(vm.data.number*100)+6}}">
+                         </span>
+
+                                <span class="b-form__input">
+                            <label for="street">Straße</label>
+                            <input ng-model="item.Position" id="street">
+                            </span>
+
+                                <span class="b-form__input">
+                            <label for="Resort">Resort</label>
+                            <input ng-model="item.Resort" id="Resort">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Department">Abteilung</label>
+                            <input ng-model="item.Department" id="Department">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="street">E-Mail</label>
+                            <input ng-model="item.Email" id="Email">
+                          </span>
+
+                                <span class="b-form__input">
+                            <label for="Homepage">Homepage</label>
+                            <input ng-model="item.HomePage" id="Homepage">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="tel1">Telefon</label>
+                            <input ng-model="item.Phone" id="tel1">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Funk">Funk</label>
+                            <input ng-model="item.Funk" id="Funk">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="tel2">Fax</label>
+                            <input ng-model="item.Fax" id="tel2">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="MemInfo">Mem Info</label>
+                            <input ng-model="item.MemInfo" id="MemInfo">
+                        </span>
+
+                                <img src="content/images/icons/trash_basket.png"
+                                     class="btn btn__trash btn--light bank-delete"
+                                     ng-click="vm.deleteContactPersons($index, item)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="vm.showTemplate === 2">
+                        <div class="b-form__half-col b-form__half-col--first">
+                            <h4 class="b-form__sub-header">Namensdaten</h4>
+                            <div class="b-form__block">
+                                                    <span class="b-form__input">
+                                    <label for="famili">Anrede</label>
+                                    <select class="gwt-ListBox" ng-model="vm.selectedPartner.Anrede">
+                                    <option value="herr">Herr</option>
+                                    <option value="Frau">Frau</option>
+                                    </select>
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Initialen">Initialen</label>
+                            <input ng-model="vm.selectedPartner.Initials" id="Initialen">
+                        </span>
+                                <span class="b-form__input">
+                            <label for="Vorname">Vorname</label>
+                            <input ng-model="vm.selectedPartner.Vorname">
+                        </span>
+                                <span class="b-form__input">
+                            <label>Nachname</label>
+                            <input ng-model="vm.selectedPartner.Nachname">
+                        </span>
+                                <span class="b-form__input">
+                            <label>Firmenname</label>
+                            <input ng-model="vm.selectedPartner.FirmName" id="Firmenname">
+                        </span>
+                                <span class="b-form__input">
+                              <label>Namenszusatz</label>
+                              <input ng-model="vm.selectedPartner.NameSuffix" id="firmenzusatz">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header">Adressdaten</h4>
+                            <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label>Straße</label>
+                            <input ng-model="vm.selectedPartner.StreetPersonal">
+                        </span>
+
+                                <span class="b-form__input ">
+                            <label for="plz-Postf">PLZ(Postf)</label>
+                            <input ng-model="vm.selectedPartner.PlzPersonal" id="plz-Postf">
+                        </span>
+
+                                <span class="b-form__input ">
+                            <label for="Postfach">Postfach</label>
+                            <input ng-model="vm.selectedPartner.POboxPersonal" id="Postfach">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header">Bankdaten</h4>
+                            <div class="b-form__block">
+                         <span class="b-form__input">
+                            <label for="Konto">Konto-Nr</label>
+                            <input ng-model="vm.selectedPartner.AccountNrPersonal" id="Konto">
+                         </span>
+
+                                <span class="b-form__input">
+                             <label>BLZ</label>
+                             <input ng-model="vm.selectedPartner.BlzPersonal">
+                        </span>
+                            </div>
+                        </div>
+
+                        <div class="b-form__half-col b-form__half-col--last">
+
+                            <h4 class="b-form__sub-header">Internetdaten</h4>
+                            <div class="b-form__block">
+                          <span class="b-form__input">
+                            <label>E-Mail</label>
+                            <input ng-model="vm.selectedPartner.Email">
+                          </span>
+
+                                <span class="b-form__input">
+                            <label for="Mail">E-Mail 2</label>
+                            <input ng-model="vm.selectedPartner.Email2" id="Mail">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>Homepage</label>
+                            <input ng-model="vm.selectedPartner.HomePagePersonal">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Seite">FTP-Seite</label>
+                            <input ng-model="vm.selectedPartner.FTPpagePersonal" id="Seite">
+                        </span>
+                            </div>
+
+                            <h4 class="b-form__sub-header">Telefondaten</h4>
+                            <div class="b-form__block">
+                        <span class="b-form__input phone-field">
+                            <label>Telefon</label>
+                            <input ng-model="vm.selectedPartner.PhonePersonal">
+                              <a class="material-icons" href="tel:{{vm.selectedPartner.PhonePersonal}}">call</a>
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Büro">Büro</label>
+                            <input ng-model="vm.selectedPartner.Office" id="Büro">
+                        </span>
+
+                                <span class="b-form__input phone-field">
+                            <label>Fax</label>
+                            <input ng-model="vm.selectedPartner.Fax">
+                                    <a class="material-icons" href="tel:{{vm.selectedPartner.Fax}}">call</a>
+                        </span>
+
+                            </div>
+
+                            <h4 class="b-form__sub-header"> Berufsdaten</h4>
+                            <div class="b-form__block">
+                        <span class="b-form__input">
+                            <label for="Business">Branche</label>
+                            <input ng-model="vm.selectedPartner.Business" id="Business">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label for="Berufsbez">Berufsbez</label>
+                            <input ng-model="vm.selectedPartner.Berufsbez" id="Berufsbez">
+                        </span>
+
+                                <span class="b-form__input">
+                            <label>Abteilung</label>
+                            <input ng-model="vm.selectedPartner.Department">
+                        </span>
+                            </div>
+
+                            <div class="b-form__block">
+                            <span class="b-form__input">
+                            <label for="comment">comment</label>
+                            <input ng-model="vm.selectedPartner.Department" id="comment">
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="vm.showTemplate === 3">
+                        <div class="b-tabs__table-info">
+                            <div class="block-table klient-table">
+                                <div ng-if="vm.selectClient.data.length === 0" class="no-data"><h3>Keine Datensätze
+                                    vorhanden</h3></div>
+                                <div ng-if="vm.showKlientList" class="loading">
+                                    <img src="content/images/loader.gif">
+                                    <h4>Loading</h4>
+                                </div>
+                                <table>
+                                    <tbody>
+                                    <tr ng-repeat="item in vm.selectClient.data"
+                                        ng-init="gesamt = $index+1"
+                                        ng-click="vm.vornameClicked(item.Code, item.VorgangId); vm.addSession(item)">
+
+                                        <td>{{$index+1}}</td>
+                                        <td><a href="">{{item.Vorname}}</a></td>
+                                        <td>{{item.fieldOne}}</td>
+                                        <td>{{item.Code}}</td>
+                                        <td>{{item.UpdateDate}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="result">
+                                <span ng-if="vm.selectClient.data.length > 0">Gesamt:  {{vm.selectClient.total}}</span>
+                                <div paging
+                                     page="1"
+                                     page-size="100"
+                                     total="vm.selectClient.total"
+                                     paging-action="vm.selectPage(page)">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="second_form clearfix">
+                        <div class="b-form__half-col">
+
+                            <div ng-show="!(vm.showTemplate === 3 || vm.showNewPartner)"
+                                 class="selected-partner-button-block">
+                                <button class="save"
+                                        ng-click="vm.updatePartner(vm.selectedPartner)" ng-if="vm.usedClient">
+                                    Speichern
+                                </button>
+
+                                <button ng-click="vm.removeDialog(vm.selectedPartner)" ng-if="vm.usedClient">
+                                    Löschen
+                                </button>
+
+                                <button class="add-document-button" ng-click="vm.sendMessage()" ng-if="vm.usedClient">
+                                    Briefvorlagen
+                                </button>
+
+                                <div class="select-client-block">
+                                    <input ng-focus="vm.show_autocomplete = true" ng-blur="vm.blurAutocomplete()"
+                                           type="text" ng-model="vm.autocompleteText">
+
+                                    <ul ng-show="vm.show_autocomplete && vm.autocompleteText">
+                                        <li ng-click="vm.selectClientForBriefvorlage(client); vm.show_autocomplete = false"
+                                            ng-repeat="client in vm.allVorgangsList | filter:vm.autocompleteText">
+                                            {{client.Vorname}}
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div ng-if="!vm.usedClient">
+                                    <button class="save"
+                                            ng-click="vm.updateUser(vm.selectedPartner)">
+                                        Speichern
+                                    </button>
+                                </div>
+
+                                <div class="briefvorlagen-dialog-window" ng-if="vm.DialogWindow">
+                                    <h4>Wirklich löschen?</h4>
+                                    <br>
+                                    <div class="button-block">
+                                        <button ng-click="vm.removePartner()">Ja</button>
+                                        <button ng-click="vm.DialogWindow = false">Nein</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="vm.showNewPartner" class="add-partner button-block">
+                                <button class="save" ng-click="vm.addPartner(vm.selectedPartner)">
+                                    Partner hinzufügen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

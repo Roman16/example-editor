@@ -1,0 +1,205 @@
+<!--for Privatdarlehen-->
+<div class="priv">
+    <div class="b-form__block b-form__fields clearfix big-bank-area-head">
+        <div class="b-request__title b-buy__name">
+            <p>Privatdarlehen</p>
+        </div>
+        <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag
+    </label>
+                <input format="currency" ng-model="item.darlehensbetrag"  type="text" ng-blur="item.darlehensbetrag = vm.parseEuroFormat(item.darlehensbetrag)">
+    </span>
+        <span class="b-form__input b-form__months b-form__input-middle">
+    <label for="running_time">Laufzeit</label>
+    <input ng-model="item.laufzeitInMonaten" id="running_time" type="text" ng-blur="item.letzteRateDatum = $parent.vm.privatDarlehen('letztedatum', item.ersteRate_datum, item.laufzeitInMonaten);">
+    </span>
+        <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="$parent.vm.deleteFinanzierungsbausteine($index)">
+    </span>
+    </div>
+    <div class="b-form__block b-form__group-child big-bank-area clearfix">
+        <div class="b-form__block-select">
+            <span class="text-title">Bank:</span>
+            <span class="b-form__input b-form__input-large">
+                <select style="width: 263px;"
+                        ng-model="item.bank"
+                        ng-options="p.BankanschriftId as p.Name for p in vm.banks">
+                </select>
+    </span>
+        </div>
+        <div class="block-left">
+            <div class="b-form__wrap-box clearfix">
+                <div class="b-form__group-text">
+                    <span class="text-title">Kreditbetrag:</span>
+                    <!--<span class="text-title"> EUR</span>-->
+                </div>
+                <span class="b-form__input custom-euro-input">
+
+    <input ng-model="item.darlehensbetrag"  id="loan_amount" type="text" format="currency">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Restschuldversicherung</span>
+                <span class="b-form__checkbox">
+    <!--<label for="eur">EUR</label>-->
+                    <!--<input ng-model="item.restchuldversicherung.eur" name="eur" id="eur"-->
+                    <!--type="checkbox">-->
+    </span>
+                <!--<span class="text-title">AU</span>-->
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.restchuldversicherung.au" id="insurance" type="text" format="currency" ng-blur="item.restchuldversicherung.au = vm.parseEuroFormat(item.restchuldversicherung.au)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Vermittlungscourtage %</span>
+                <span class="b-form__input">
+    <input  type="text" format ng-model="item.vermittlungscourtage" ng-blur="item.vermittlungscourtage = vm.parseEuroFormat(item.vermittlungscourtage)" >
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Vermittlungscourtage</span>
+                <span class="b-form__input custom-euro-input">
+                    <input id="commission_eur" type="text" format ng-model="item.vermittlungscourtage_eur" ng-blur="item.vermittlungscourtage_eur = vm.parseEuroFormat(item.vermittlungscourtage_eur)">
+                </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Antragssumme:</span>
+                <span class="b-form__input custom-euro-input">
+    <input id="sum" type="text" format ng-model="item.antragssumme" ng-blur="item.antragssumme = vm.parseEuroFormat(item.antragssumme)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Kreditgebühren Nominalzins %</span>
+                <span class="b-form__input">
+    <input id="loan_fees" type="text" format ng-model="item.kreditgebuhren"  ng-blur="item.kreditgebuhren = vm.parseEuroFormat(item.kreditgebuhren)" >
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Zinsbelastung</span>
+                <!--<span class="text-title">EUR</span>-->
+                <span class="b-form__input custom-euro-input">
+     <input id="interest_charges" type="text" format ng-model="item.zinsbelastung" ng-blur="item.zinsbelastung = vm.parseEuroFormat(item.zinsbelastung)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Gesamtkreditbetrag</span>
+                <!--<span class="text-title">EUR</span>-->
+                <span class="b-form__input">
+    <input id="total_sum" type="text" format
+           ng-value="$parent.vm.privatDarlehen('gesamtkreditbetrag', item.antragssumme, item.zinsbelastung)" disabled>
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Laufzeit in Monaten</span>
+                <span class="b-form__input">
+    <input ng-model="item.laufzeitInMonaten"  id="duration" type="text" ng-blur="item.letzteRateDatum = $parent.vm.privatDarlehen('letztedatum', item.ersteRate_datum, item.laufzeitInMonaten);">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Erste Rate EUR</span>
+                <span class="b-form__input custom-euro-input">
+    <input id="first_rate"  type="text" format ng-model="item.ersteRate_eur" ng-blur="item.ersteRate_eur = vm.parseEuroFormat(item.ersteRate_eur)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Erste Rate Datum</span>
+                <span class="b-form__input input-custom-date">
+    <input type="date"  ng-init="item.ersteRate_datum = vm.convertAllDateFromString(item.ersteRate_datum)" ng-blur="item.letzteRateDatum= $parent.vm.privatDarlehen('letztedatum', item.ersteRate_datum, item.laufzeitInMonaten);" ng-model="item.ersteRate_datum" id="first_rate_date">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Monatliche Rate:</span>
+                <span class="b-form__input custom-euro-input">
+    <input id="monthly_rate" type="text" format ng-model="item.monatlicheRate" ng-blur="item.monatlicheRate = vm.parseEuroFormat(item.monatlicheRate)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Letzte Rate</span>
+                <span class="b-form__input custom-euro-input">
+    <input id="last_rate" type="text" format ng-model="item.letzteRate" ng-blur="item.letzteRate = vm.parseEuroFormat(item.letzteRate)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Letzte Rate Datum:</span>
+                <span class="b-form__input input-custom-date">
+    <input type="date"  ng-init="item.letzteRateDatum= $parent.vm.privatDarlehen('letztedatum', item.ersteRate_datum, item.laufzeitInMonaten);item.letzteRateDatum=vm.convertAllDateFromString(item.letzteRateDatum)"  disabled  ng-model="item.letzteRateDatum" id="last_rate_date" >
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Effektiver Jahreszins %:</span>
+                <span class="b-form__input">
+    <input ng-model="item.effektiver" format id="interest_rate" type="text">
+    </span>
+            </div>
+
+        </div>
+        <div class="block-right">
+            <span class="b-form__input b-form__input-large">
+    <label for="contract_number">Vertragsnummer:</label>
+    <input ng-model="item.vertragsnummer"  id="contract_number" type="text">
+    </span>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">packing %:</span>
+                <span class="b-form__input">
+    <input ng-model="item.packing_pc" format ng-blur="item.packing_pc = vm.parseEuroFormat(item.packing_pc)" id="packing" type="text">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">packing EUR</span>
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.packing_eur" id="packing_eur" type="text" format ng-blur="item.packing_eur = vm.parseEuroFormat(item.packing_eur)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Provision Bank:</span>
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.provisionBank" id="commission" type="text" format ng-blur="item.provisionBank = vm.parseEuroFormat(item.provisionBank)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Provision Restschuldversicherung %:</span>
+                <span class="b-form__input">
+    <input ng-model="item.provisionRestschuldversicherung_pc"  format ng-blur="item.provisionRestschuldversicherung_pc = vm.parseEuroFormat(item.provisionRestschuldversicherung_pc)" id="insurance_cover"
+           type="text">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Provision Restschuldversicherung EUR:</span>
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.provisionRestschuldversicherung_eur" format="currency" ng-blur="item.provisionRestschuldversicherung_eur = vm.parseEuroFormat(item.provisionRestschuldversicherung_eur)"
+           id="insurance_cover_eur" type="text">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Gesamtprovision EUR:</span>
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.gesamtprovision_eur" id="total_commission" type="text" format="currency" ng-blur="item.gesamtprovision_eur = vm.parseEuroFormat(item.gesamtprovision_eur)" >
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="text-title">Provision Berater EUR:</span>
+                <span class="b-form__input custom-euro-input">
+    <input ng-model="item.provisionBerater_eur" id="commission_consultants" format="currency"
+           type="text" ng-blur="item.provisionBerater_eur = vm.parseEuroFormat(item.provisionBerater_eur)">
+    </span>
+            </div>
+            <div class="b-form__wrap-box clearfix">
+                <span class="b-form__checkbox braus">
+    <label for="cash">Barauszahlung</label>
+    <input ng-model="item.barauszahlung" name="barauszahlung" id="cash"
+           type="checkbox">
+    </span>
+            </div>
+            <div class="b-form__wrap-box  b-remarks clearfix">
+                <span class="b-form__input input-remarks">
+    <label for="remarks" class="remarks">Bemerkungen:</label>
+    <textarea ng-model="item.bemerkungen" id="remarks" rows="8"></textarea>
+    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->

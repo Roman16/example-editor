@@ -1,0 +1,168 @@
+<main class="b-main">
+    <div class="container">
+        <div class="b-tabs information clearfix">
+            <div class="b-tabs__block-left">
+                <div class="b-form__title-dark b-form__title">Zuletzt bearbeitete Vorgänge</div>
+                <div class="b-form__block">
+                    <!-- <span class="b-form__checkbox">
+                        <input name="notify" id="notify" type="checkbox">
+                        <label for="notify">friedrich@ultima.de per E-mail über neue Ereignisse benachrichtigen</label>
+                    </span> -->
+
+                    <div class="b-tabs__table-info">
+                        <div class="block-table">
+                            <table>
+                                <tbody>
+                                <tr ng-repeat="item in vm.users.data"
+                                    ng-click="vm.vornameClicked(item.ReferenceCode?item.ReferenceCode:item.Code, item.ReferenceId?item.ReferenceId:item.VorgangId, item.Partner)">
+                                    <td><img src="content/images/home.png" alt=""></td>
+                                    <td><a href="">{{item.Vorname}}</a></td>
+                                    <td>{{item.Code}}</td>
+                                    <td>{{item.UpdateDate}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b-tabs__block-right">
+                <form ng-submit="vm.submit()" name="newVorgang">
+                    <div class="b-form__title-dark b-form__title">Neuer Vorgang</div>
+                    <div class="b-form__block" style="background: #fff;">
+                        <!--<div class="b-tabs__text">Testumgebung: Vorgänge können nicht abgeschlossen werden!</div>-->
+                        <div class="register-user-block">
+                            <div class="b-tabs__table-info" style="width: 50%">
+                            <span class="b-form__input">
+                                <label for="usage">Verwendungszweck *</label>
+                                <select id="usage" name="usage" ng-model="vm.data.Verwendungszweck" required>
+                                    <option value="1">Ratenkredit</option>
+                                    <option value="2">Baufinanzierung</option>
+                                </select>
+                            </span>
+                                <div class="b-form__child-item b-form__child-item_normal child-item-not-paddingL">
+                                    <div ng-show="vm.data.Verwendungszweck === '2'">
+                                        <h4>Wie wird die lmmobilie genutzt?</h4>
+                                        <span class="b-form__radio">
+                                    <input name="eigennutzung" id="eigennutzung" type="radio" value="Eigennutzung"
+                                           ng-model="vm.data.genutzt">
+                                    <label for="eigennutzung">Eigennutzung</label>
+                                </span>
+                                        <span class="b-form__radio">
+                                    <input name="vermietet" id="vermietet" type="radio" value="Vermietet"
+                                           ng-model="vm.data.genutzt">
+                                    <label for="vermietet">Vermietet</label>
+                                </span>
+                                        <span class="b-form__radio">
+                                    <input name="beides" id="beides" type="radio" value="Beides"
+                                           ng-model="vm.data.genutzt">
+                                    <label for="beides">Beides</label>
+                                </span>
+                                    </div>
+                                    <!--1-->
+                                </div>
+
+                                <div class="b-form__input">
+                                    <label for="finanzbedarf">Geburtsdatum</label>
+                                    <input type="date" style="width: 100%" ng-model="vm.data.birthDate" ng-change="vm.search(vm.data.birthDate, vm.data.nachname, vm.data.vorname)"  ng-init="vm.data.seit=vm.convertAllDateFromString(vm.data.seit)">
+                                </div>
+
+                                <div class="b-form__input">
+                                    <label for="finanzbedarf">Name</label>
+                                    <input ng-model="vm.data.nachname" ng-change="vm.search(vm.data.birthDate, vm.data.nachname, vm.data.vorname)">
+                                </div>
+
+                                <div class="b-form__input">
+                                    <label for="finanzbedarf">Vorname</label>
+                                    <input ng-model="vm.data.vorname" ng-change="vm.search(vm.data.birthDate, vm.data.nachname, vm.data.vorname)">
+                                </div>
+
+                                <span class="b-form__input b-form__euro">
+                                    <label for="finanzbedarf">Finanzbedarf</label>
+                                    <input ng-model="vm.data.Finanzbedarf" format id="finanzbedarf" type="text"
+                                           required>
+                                </span>
+
+                                <span class="b-form__input">
+                                <label for="werbung">Werbung *</label>
+                                <select ng-model="vm.data.Werbung" id="werbung" required>
+                                    <option ng-repeat="selector in vm.werbungList track by $index"
+                                            value="{{selector.Ifnr}}">{{selector.Bezeichnung}}</option>
+                                </select>
+                            </span>
+                                <span class="b-form__input"
+                                      ng-init="vm.data.Kontaktart=='-1'?vm.data.Kontaktart=0:vm.data.Kontaktart">
+                                <label for="property">Kontaktart *</label>
+                                <select id="property" ng-model="vm.data.Kontaktart" required>
+                                    <option value="0">Bitte wählen Sie ...</option>
+                                    <option value="1">E-Mail</option>
+                                    <option value="2">telefonisch</option>
+                                    <option value="3">per Post</option>
+                                    <option value="4">direkt</option>
+                                    <option value="5">Internet</option>
+                                </select>
+                            </span>
+
+                                <div class="b-form__child-item b-form__child-item_normal child-item-not-paddingL">
+                                    <h4>Partnergeschäft</h4>
+                                    <span class="b-form__radio">
+                                        <input ng-model="vm.data.Partnergeschaft" value="0" id="nein" type="radio">
+                                        <label for="nein">nein</label>
+                                    </span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="vm.data.Partnergeschaft" ng-click=" vm.downloadPartnerList ? vm.getListPartners() : ''" value="1" id="ja" type="radio">
+                                        <label for="ja">ja</label>
+                                    </span>
+                                    <select id="partners" ng-model="vm.data.PartnergeschaftList" required
+                                            ng-if="vm.data.Partnergeschaft==='1'">
+                                        <option ng-if="partner.Nachname!==' '&&partner.Vorname!==' '"
+                                                ng-value="partner.AdressenId"
+                                                ng-repeat="partner in vm.partners">
+                                            {{partner.Nachname+','+partner.Vorname}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-block">
+                                <div class="b-form__block">
+                                    <div class="b-tabs__table-info">
+                                        <div class="block-table">
+                                            <div ng-if="vm.download" class="loading">
+                                                <img  src="content/images/loader.gif">
+                                                <h4>Loading</h4>
+                                            </div>
+
+                                            <table>
+                                                <tbody>
+                                                <tr ng-repeat="item in vm.customers | isNameNotEmpty" ui-sref="app.tabs.antragsteller({id: item.VorgangId})">
+                                                    <td><a>{{item.Vorname}}</a></td>
+                                                    <td class="column-number-op first">
+                                                        <span class="number-op">{{item.Code}}</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b-form__child-item_normal" style="margin: 0 10px 18px">
+                            <div class="b-form__title-btn b-form__title">
+                                <div class="b-form__right-list">
+                                    <button type="submit" class="btn btn--light" ng-disabled="!(vm.data.birthDate || vm.data.nachname || vm.data.vorname) || vm.customers.length>0">
+                                        Neuer Vorgang
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b-form__title-dark b-form__title" style="text-align: right;padding-right: 25px;font-weight: normal">
+                            {{vm.berlin_bank | replaceComma}} EUR
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

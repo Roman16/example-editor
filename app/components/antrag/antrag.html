@@ -1,0 +1,466 @@
+<div class="b-form__group b-form__fields clearfix antrag-container" ng-style="vm.data.abgerechnet ? {border:'10px solid green'}:''">
+    <div>
+        <div class="antrag-first">
+                            <span class="b-form__input">
+                                <label for="editor">Bearbeiter</label>
+                                <!--<input disabled ng-model="vm.data.bearbeiter" id="editor" type="text">-->
+                                <select ng-model="vm.data.bearbeiter" name="" id="editor">
+                                    <option ng-repeat=" item in vm.bearbeiterUser" value="{{item.Benutzername}}">{{item.Benutzername}}</option>
+                                </select>
+                            </span>
+            <span class="b-form__input b-form__input-middle" style="width: 12%;">
+                                <label for="date_created">erstellt am</label>
+                                <input ng-init="vm.data.erstelltam=vm.convertAllDateFromString(vm.data.erstelltam)"
+                                       ng-model="vm.data.erstelltam" id="date_created" type="date">
+                            </span>
+
+            <span class="b-form__input">
+                                <label for="purpose">Verwendungszweck</label>
+                                <input ng-model="vm.data.zweck" id="purpose" type="text">
+                            </span>
+            <span class="b-form__checkbox">
+                                <label for="declined">abgelehnt</label>
+                                <input ng-model="vm.data.abgelehnt" value="true" name="abgelehnt" id="declined"
+                                       type="checkbox">
+                            </span>
+            <span class="b-form__checkbox">
+                                <label for="billed" class="label_billed">abgerechnet</label>
+                                <input ng-model="vm.data.abgerechnet" value="true" name="abgerechnet" id="billed"
+                                       type="checkbox">
+                            </span>
+
+            <span class="b-form__input ablehnungsgrund">
+        <label for="selectablehnungsgrund" style="">Ablehnungsgrund</label>
+        <select ng-model="vm.data.field" id="selectablehnungsgrund">
+            <option ng-repeat="selector in vm.match track by $index" value="{{$index}}">{{selector}}</option>
+        </select>
+    </span>
+
+            <span class="b-form__input b-form__input-short">
+                                <label for="requests">Anfragen</label>
+                                <input ng-model="vm.data.anfragen" ng-value="vm.data.anfrages.length" id="requests"
+                                       type="text" disabled>
+                            </span>
+            <span class="b-form__checkbox">
+                                <label for="cancellation">Storno</label>
+                                <input ng-model="vm.data.storno" name="storno" id="cancellation" type="checkbox">
+                            </span>
+
+            <span class="b-form__input b-form__input-middle " style="width: 12%; margin-right: 10px;">
+                                <label for="wiedervorlage">Wiedervorlage</label>
+                                <input ng-init="vm.data.wiedervorlage=vm.convertAllDateFromString(vm.data.wiedervorlage)"
+                                       ng-model="vm.data.wiedervorlage" ng-change="vm.data.wiedervorlage=vm.changeWiedervorlage(vm.data.wiedervorlage)"
+                                       id="wiedervorlage" type="date">
+                            </span>
+
+            <span class="b-form__input firstAreaDelete">
+                                    <label for="datenn">&nbsp;</label>
+                                            <img src="content/images/icons/description.png"
+                                                 class="btn btn__trash btn--light"
+                                                 ng-click="vm.toggleTooltip()">
+                                                 <div ng-show="vm.isTooltipOpened" class="tooltip">
+                                                     <div class="close-tooltip" ng-click="vm.isTooltipOpened = false;">
+                                                         <i class="fa fa-times" aria-hidden="true"></i>
+                                                     </div>
+                                                    <label for="comments">Kommentar</label>
+                                                    <textarea name="comments" id="comments" ng-model="vm.data.comment"
+                                                              ng-blur="vm.toggleTooltip()"></textarea>
+                                                 </div>
+            </span>
+            <span style="margin-left: 25px;" class="b-form__input firstAreaDelete">
+                                    <label for="dateen">&nbsp;</label>
+                                            <img src="content/images/icons/trash_basket.png"
+                                                 class="btn btn__trash btn--light"
+                                                 ng-click="vm.showDeleteAntragConfirmation($parent.$index)">
+                                </span>
+        </div>
+
+        <div>
+            <div class="eur-list">
+
+                <div style="width: 40%;">
+                    <div ng-show="vm.banken"
+                         class="b-buy__item" style="width: 50%">
+                                    <span class="b-form__input">
+                                        <label for="date">Bank</label>
+                                        <input ng-model="vm.banken" disabled>
+                                    </span>
+                    </div>
+                    <div ng-show="vm.banken"
+                         class="b-buy__item b-buy__begin">
+                                    <span class="b-form__input">
+                                        <label for="date">Datum</label>
+                                        <input ng-init="vm.data.datum=vm.convertAllDateFromString(vm.data.datum)"
+                                               ng-model="vm.data.datum" id="date" type="date">
+                                    </span>
+                    </div>
+                </div>
+                <div class="b-buy__item b-buy__bet">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="wish">Wunsch</label>
+                                        <input format ng-model="vm.data.wunsch" id="wish" type="text"
+                                               ng-blur="vm.data.wunsch = vm.parseEuroFormat(vm.data.wunsch)">
+                                    </span>
+                </div>
+
+                <div style="width: 40%">
+                <div ng-show="vm.banken"
+                     class="b-form__group-child b-form__input b-form__group-child-last" style="width: 50%;float: left">
+                    <label>Gesamtprovision:</label>
+                    <span class="sum">{{vm.getTotalOfGesamtprovision() | replaceComma}} EUR</span>
+                </div>
+                <div ng-show="vm.banken"
+                     class="b-form__group-child b-form__input b-form__group-child-last">
+                    <label>Provision Berater:</label>
+                    <span class="sum">{{vm.getTotalOfBeraterrovision() | replaceComma}} EUR</span>
+                </div>
+                </div>
+            </div>
+
+            <img class="arrow" ng-class="vm.anfrageIsOpened ? 'show' : ''" ng-click="vm.toggleAnfrage()"
+                 src="content/images/icons/arrow.png" alt="">
+        </div>
+        <div ng-show="vm.anfrageIsOpened" class="b-form__block-select">
+            <button class="btn btn--light mr-10" ng-click="vm.addAnfrage()">Neue Anfrage</button>
+            <!--ANFRAGE START-->
+            <anfrage ng-repeat="anfrage in vm.data.anfrages" data-banken="vm.banken" data-parent="anfrage"
+                     data-banks="{{vm.banks}}"></anfrage>
+            <!--ANFRAGE END-->
+            <div class="b-form__title-dark b-form__title iterate_header" style="margin: 25px 0;">
+                <span>Finanzierungswunsch</span>
+                <div class="dropdown" style="margin-left: 10px;" click-outside="vm.show_dropdown = false; vm.insert_dropdown = false">
+                    <button class="dropbtn" ng-click="vm.show_dropdown = !vm.show_dropdown">Finanzierungsbaustein &#9660;</button>
+
+                    <div  id="myDropdown" class="dropdown-content dropdown-content-hide" ng-show="vm.show_dropdown">
+                        <div>
+                            <h4>Baudarlehen</h4>
+                            <a ng-click="vm.addFinanzierungsbausteine('annuitatendarlehen')">Annuitätendarlehen</a>
+                            <!--<a>Volltilger Annu</a>-->
+                            <!--<a>Endfralliges Darlehen</a>-->
+                            <div class="dropdownIn" click-outside="vm.insert_dropdown = false">
+                                <span class="dropbtnIn" ng-click="vm.insert_dropdown = !vm.insert_dropdown">KfW &#9660;</span>
+
+                                <div id="myDropdownIn" class="dropdown-contentIn" ng-show="vm.insert_dropdown">
+                                    <div>
+                                        <h4>Wohneigentumsprogramm</h4>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Wohneigentumsprogramm', 'Selbstgenutztes Eigentum (124)')"
+                                           multiple>KfW
+                                            Wohneigentumsprogramm</a>
+                                    </div>
+                                    <div>
+                                        <h4>Energieeffizient Sanieren</h4>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Sanieren', 'Kauf order Komplettsanierung (151)')">Kauf
+                                            order Komplettsanierung
+                                            (151)</a>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Sanieren', 'Kauf order Komplettsanierung (151)')">Einzelmaßnahmen
+                                            (152)</a>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Sanieren', 'Heizungsanlagen Eeneuerbare Energien (167)')">Heizungsanlagen
+                                            Eeneuerbare Energien
+                                            (167)</a>
+                                    </div>
+                                    <div>
+                                        <h4>Energieeffizient Bauen</h4>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Bauen', 'Effizienzhaus 40 Plus (153)')">Effizienzhaus
+                                            40 Plus (153)</a>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Bauen', 'Effizienzhaus 40 (153)')">Effizienzhaus
+                                            40 (153)</a>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Energieeffizient Bauen', 'Effizienzhaus 55 (153)')">Effizienzhaus
+                                            55 (153)</a>
+                                    </div>
+                                    <div>
+                                        <h4>Wohnraum Modernisieren</h4>
+                                        <a ng-click="vm.addFinanzierungsbausteine('kfw', 'KfW Wohnraum Modernisieren', 'Altersgerecht Umbauen(159)')">Altersgerecht
+                                            Umbauen(159)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Forwarddarlehen</h4>
+                            <a ng-click="vm.addFinanzierungsbausteine('forwarddarlehen')">Forwarddarlehen</a>
+                            <!--<a>Volltilger Forward</a>-->
+                        </div>
+                        <div>
+                            <h4>Sonstige Darlehen</h4>
+                            <a ng-click="vm.addFinanzierungsbausteine('privatdarlehen')">Privatdarlehen</a>
+                            <!--<a>Zwischenfinanzierung</a>-->
+                            <a ng-click="vm.addFinanzierungsbausteine('variablesdarlehen')">Variables Darlehen</a>
+                        </div>
+                        <div>
+                            <h4>Bausparangebote</h4>
+                            <a ng-click="vm.addFinanzierungsbausteine('zur_zinsabsicherung')">zur Zinsabsicherung</a>
+                            <!--<a>zur Tilgungsaussetzung (externes Darlehen)</a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="b-form__loans">
+                    <label for="credit_sum">Noch benötigte Darlehen: </label>
+                    <span class="b-form__euro bold-euro">
+                    <input id="credit_sum" type="text" ng-model="vm.data.credit_sum" format
+                           ng-blur="vm.data.credit_sum = vm.parseEuroFormat(vm.data.credit_sum)">
+                    </span>
+                </div>
+            </div>
+
+            <!---------------------------/-->
+
+            <div class="b-request b-third_form" style="left: -100vw;">
+
+                <div ng-show="!item.bank || +item.bank === vm.data.banken_id" ng-repeat="item in vm.data.finanzierungsbausteines track by $index"
+                     ng-include="'components/antrag/dropdown/'+item.id+'.html'"
+                     style="margin: 20px auto;">
+                </div>
+
+
+                <!--KfW-->
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix"
+                     ng-if="item.linkName === 'Selbstgenutztes Eigentum (124)'">
+                    <div class="b-request__title">
+                        <p>KfW Wohneigentumsprogramm</p>
+                        <p><a href="">Selbstgenutztes Eigentum (124) <img src="content/images/icons/link.png"></a>
+                        </p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="ownership_select">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="ownership_select" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix"
+                     ng-if="item.linkName === 'Kauf order Komplettsanierung (151)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Sanieren</p>
+                        <p><a href="">Kauf order Komplettsanierung (151) <img
+                                src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="energy_efficiency">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="energy_efficiency" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix" ng-if="item.linkName === 'Einzelmaßnahmen (152)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Sanieren</p>
+                        <p><a href="">Einzelmaßnahmen (152) <img src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="measures">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="measures" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix"
+                     ng-if="item.linkName === 'Heizungsanlagen Eeneuerbare Energien (167)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Sanieren</p>
+                        <p><a href="">Heizungsanlagen Eeneuerbare Energien (167) <img
+                                src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="heating_systems">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="heating_systems" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix"
+                     ng-if="item.linkName === 'Effizienzhaus 40 Plus (153)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Bauen</p>
+                        <p><a href="">Effizienzhaus 40 Plus (153) <img src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="effizienzhaus_40_plus">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="effizienzhaus_40_plus" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix" ng-if="item.linkName === 'Effizienzhaus 40 (153)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Bauen</p>
+                        <p><a href="">Effizienzhaus 40 (153) <img src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="effizienzhaus_40">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="effizienzhaus_40" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix" ng-if="item.linkName === 'Effizienzhaus 55 (153)'">
+                    <div class="b-request__title">
+                        <p>KfW Energieeffizient Bauen</p>
+                        <p><a href="">Effizienzhaus 55 (153) <img src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="effizienzhaus_55">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="effizienzhaus_55" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="vm.removeOneItem(arrar.items, $index)">
+    </span>
+                </div>
+                <div ng-show="arrar.anfrageIsOpened" ng-repeat="item in arrar.items  track by $index"
+                     class="b-form__block b-form__fields clearfix"
+                     ng-if="item.linkName === 'Altersgerecht Umbauen(159)'">
+                    <div class="b-request__title">
+                        <p>KfW Wohnraum Modernisieren</p>
+                        <p><a href="">Altersgerecht Umbauen(159) <img src="content/images/icons/link.png"></a></p>
+                    </div>
+                    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text">
+    </span>
+                    <span class="b-form__input years">
+    <label for="age_rebuilding">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+    <select id="age_rebuilding" ng-model="item.laufzeit">
+    <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+    <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+    <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+    <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+    </select>
+    </span>
+                    <span class="b-form__input b-buy__option">
+    <label for="date">&nbsp;</label>
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="$parent.vm.deleteAntrag($parent.antrag.Id)">
+    </span>
+                </div>
+
+                <!--end-->
+
+
+            </div>
+        </div> <!--anfrage block -->
+
+
+    </div>
+    <!-----------------------------/-->
+    <div ng-if="vm.showDeleteAnfrageConfirmationDialog" class="anfrage-dialog-window" id="delete-anfrage">
+        <h4>Wirklich löschen?</h4>
+        <div class="button-block">
+            <button ng-click="$parent.vm.deleteAnfrage(vm.anfrageId)">Ja</button>
+            <button ng-click="vm.showDeleteAnfrageConfirmationDialog = false">Nein</button>
+        </div>
+    </div>
+    <!-----------------------------/-->
+    <div ng-if="vm.showDeleteAntragConfirmationDialog" class="anfrage-dialog-window" id="delete-antrag">
+        <h4>Wirklich löschen?</h4>
+        <div class="button-block">
+            <button ng-click="$parent.vm.deleteAntrag(vm.antragId)">Ja</button>
+            <button ng-click="vm.showDeleteAntragConfirmationDialog = false">Nein</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,158 @@
+
+<h4 class="b-form__sub-header">Basisangaben</h4>
+<div class="b-form__block">
+    <div class="b-form__group b-form__group--same-height">
+        <div class="b-form__half-col b-form__half-col--first">
+        <span class="b-form__address clearfix">
+            <span class="b-form__input b-form__address-long">
+                <label for="street_name">Straße</label>
+                <input ng-model="vm.data.strabe" id="street_name" type="text">
+            </span>
+            <span class="b-form__input b-form__address-short">
+                <label for="street_numb">Nr.</label>
+                <input ng-model="vm.data.nr" id="street_numb" type="text">
+            </span>
+        </span>
+            <span class="b-form__input">
+            <label for="artt">Art der Immobilie</label>
+            <select ng-model="vm.data.art" id="artt">
+                            <option value="Bitte wählen Sie…">Bitte wählen Sie…</option>
+                            <option value="Einfamilienhaus"
+                                    selected="selected">Einfamilienhaus</option>
+                            <option value="Eigentumswohnung">Eigentumswohnung</option>
+                            <option value="Reihenhaus">Reihenhaus</option>
+                            <option value="Doppelhaushälfte">Doppelhaushälfte</option>
+                            <option value="Zweifamilienhaus">Zweifamilienhaus</option>
+                            <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+                            <option value="Grundstück">Grundstück</option>
+                        </select>
+            </span>
+            <span class="b-form__radio-label">
+                <label>Einliegerwohnung vorhanden?</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.einliegerwonhnung" value="1"
+                                name="vorh" id="einliegerwonhnungja" type="radio">
+                        <label for="einliegerwonhnungja">ja</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.einliegerwonhnung" value="0"
+                                name="vorh" id="einliegerwonhnungnein" type="radio">
+                        <label for="einliegerwonhnungnein">nein</label>
+                    </span>
+                </span>
+            </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--last">
+            <span class="b-form__address clearfix">
+                <span class="b-form__input b-form__address-short">
+                    <label for="plz">PLZ</label>
+                    <input ng-model="vm.data.plz" id="plz" type="text">
+                </span>
+                <span class="b-form__input b-form__address-long">
+                    <label for="ort">Ort</label>
+                    <input ng-model="vm.data.ort" id="ort" type="text">
+                </span>
+            </span>
+            <span class="b-form__input b-form__squere">
+                <label for="grund">Grundstücksgröße</label>
+                <input ng-model="vm.data.grundstucksgrobe" id="grund" type="text">
+            </span>
+            <span class="b-form__input">
+                <label for="bau">Baujahr</label>
+                <input ng-model="vm.data.baujahr" id="bau" type="text">
+            </span>
+        </div>
+    </div>
+    <p class="divider"></p>
+
+
+    <div class="b-form__group">
+        <div class="b-form__half-col b-form__half-col--first">
+            <span class="b-form__input">
+                <label for="Anzahl">Anzahl der Vollgeschosse</label>
+                <input ng-model="vm.data.anzahl" id="Anzahl"
+                        type="text">
+            </span>
+
+            <span class="b-form__radio-label">
+                <label>Fertighaus</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.fertighaus" name="vorh1" id="fertighausja"
+                                value="1" type="radio">
+                        <label for="fertighausja">ja</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.fertighaus" name="vorh1" id="fertighausnein"
+                                value="0" type="radio">
+                        <label for="fertighausnein">nein</label>
+                    </span>
+                </span>
+            </span>
+
+            <span class="b-form__radio-label">
+                <label>Dachgeschoss</label>
+                <span class="b-form__col b-form__vert">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.dachgeschoss" name="vorh2" id="Dachgeschossja"
+                                value="Voll ausgebaut" type="radio">
+                        <label for="Dachgeschossja">Voll ausgebaut</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.dachgeschoss" name="vorh2"
+                                id="Dachgeschossnein" value="Teilweise ausgebaut" type="radio">
+                        <label for="Dachgeschossnein">Teilweise ausgebaut</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.dachgeschoss" name="vorh2"
+                                id="Nichtnein" value="Nicht ausgebaut" type="radio">
+                        <label for="Nichtnein">Nicht ausgebaut</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.dachgeschoss" name="vorh2"
+                                id="Nichtnein" value="Flachdach" type="radio">
+                        <label for="Nichtnein">Flachdach</label>
+                    </span>
+                </span>
+            </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--last">
+            <span class="b-form__radio-label">
+                <label for="first_name">Bauweise</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.bauweise" value="massiv"
+                                name="vorh3" id="bauweiseja" type="radio">
+                        <label for="bauweiseja">massiv</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.bauweise" value="andere"
+                                name="vorh3" id="bauweisenein" type="radio">
+                        <label for="bauweisenein">andere</label>
+                    </span>
+                </span>
+            </span>
+            <span class="b-form__radio-label">
+                <label>Keller</label>
+                <span class="b-form__col b-form__vert">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.keller" value="Unterkellert"
+                                name="vorh4" id="kellerja" type="radio">
+                        <label for="kellerja">Unterkellert</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.keller" value="Teilunterkellert"
+                                name="vorh4" id="kellernein" type="radio">
+                        <label for="kellernein">Teilunterkellert</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.keller" value="Nicht unterkellert"
+                                name="vorh4" id="unterkellertnein" type="radio">
+                        <label for="unterkellertnein">Nicht unterkellert</label>
+                    </span>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>

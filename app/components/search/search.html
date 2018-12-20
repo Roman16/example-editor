@@ -1,0 +1,44 @@
+<div class='ng-modal' ng-if='vm.modal.isOpened'>
+    <div class='ng-modal-overlay' ng-click='vm.toggle()'></div>
+    <div class='ng-modal-dialog' ng-style='dialogStyle'>
+        <div class='ng-modal-close' ng-click='vm.toggle()'>X</div>
+        <div class='ng-modal-dialog-content'>
+            <div class="search-block">
+                <form action="" method="get" ng-init="vm.setFocus()">
+                    <div class="b-form__search">
+                        <img src="content/images/icons/search.png" alt="search">
+                        <input   ng-model-options='{ debounce: 500 }' id="search" type="text" ng-change="vm.search()" ng-model="vm.searchText" placeholder="Vorgänge suchen (Name, Vorgangsnummer, Telefonnummer...)">
+                    </div>
+                </form>
+
+                <div class="b-form__results">
+                    <table class="b-form__results-table">
+                        <thead>
+                        <tr>
+                            <th class="first">Vorgangsnummer</th>
+                            <th>Name Antragsteller</th>
+                            <th>Telefon</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.customers.data" ng-click="vm.toggle(item.ReferenceCode?item.ReferenceCode:item.Code, item.Partner, item.ReferenceId?item.ReferenceId:item.VorgangId)">
+                            <td class="column-number-op first">
+                                <img src="content/images/icons/big_user.png" alt="">
+                                <span class="number-op">{{item.Code}}</span>
+                            </td>
+                            <td><p>{{item.Vorname}}</p></td>
+                            <td>{{item.Telephone}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div paging
+                     page="1"
+                     page-size="100"
+                     total="vm.customers.total"
+                     paging-action="vm.selectPage(page,vm.searchText)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

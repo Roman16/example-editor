@@ -1,0 +1,24 @@
+<div class="b-form__group b-buy">
+    <div class="b-buy__item b-buy__name">
+        Wertpapiere / Aktien
+    </div>
+    <div class="b-buy__item b-buy__bet">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="Marktwert">Marktwert</label>
+                                        <input format="currency" id="Marktwert" type="text" ng-model="$parent.bank.marktwert" ng-blur="$parent.bank.marktwert = vm.parseEuroFormat($parent.bank.marktwert)">
+                                    </span>
+    </div>
+    <div class="b-buy__item b-buy__begin">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="Dividenden">Dividenden</label>
+                                        <input format="currency" id="Dividenden" type="text" ng-model="$parent.bank.dividenden" ng-blur="$parent.bank.dividenden = vm.parseEuroFormat($parent.bank.dividenden)">
+                                    </span>
+    </div>
+    <div class="b-buy__item b-buy__options" style="margin-top: 15px;">
+                                     <span class="b-form__input">
+                                        <img src="content/images/icons/trash_basket.png"
+                                             class="btn btn__trash btn--light"
+                                             ng-click="$parent.vm._deleteBank($parent.key,$parent.bank.side)">
+                                    </span>
+    </div>
+</div>

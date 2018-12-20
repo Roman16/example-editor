@@ -1,0 +1,93 @@
+<div class=" b-form__block" style="padding-top: 10px;"  ng-repeat="immobilien in vm.array track by $index">
+    <div class="b-form__half-col b-form__half-col--first">
+                                <span class=" b-form__address clearfix">
+                                    <span class="b-form__input b-form__address-long">
+                                        <label for="street_name">Straße</label>
+                                        <input id="street_name" type="text"
+                                               ng-model="immobilien.street">
+                                    </span>
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="street_numb">Nr.</label>
+                                        <input id="street_numb" type="text"
+                                               ng-model="immobilien.house">
+                                    </span>
+                                </span>
+
+    </div>
+    <div class="b-form__half-col b-form__half-col--last">
+                                <span class="weitere b-form__address clearfix">
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="plz">PLZ</label>
+                                        <input id="plz" type="text" ng-model="immobilien.plz">
+                                    </span>
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="ort">Ort</label>
+                                        <input id="ort" type="text" ng-model="immobilien.ort">
+                                    </span>
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="marktwert">Marktwert</label>
+                                        <input id="marktwert" type="text" ng-model="immobilien.marktwert">
+                                    </span>
+                                    <span style="margin-right: 0" class="b-form__input b-form__address-short">
+                                        <label for="gestame">Gesamte Wohnfläche</label>
+                                        <input id="gestame" type="text" ng-model="immobilien.gesamte">
+                                    </span>
+                                        <img src="content/images/icons/trash_basket.png"
+                                             class="btn btn__trash btn--light bank-delete"
+                                             ng-click="vm.deleteWis($index)">
+                                </span>
+
+    </div>
+    <div class="b-form__child-item" style="float: inherit;">
+        <h4 style="margin-top: 50px;">Wie wird die lmmobilie genutzt?</h4>
+        <span class="b-form__radio">
+                                <input name="eigennutzung" id="eigennutzung" type="radio" value="Eigennutzung"
+                                       ng-model="immobilien.genutzt">
+                                <label for="eigennutzung">Eigennutzung</label>
+                            </span>
+        <span class="b-form__radio">
+                                <input name="vermietet" id="vermietet" type="radio" value="Vermietet"
+                                       ng-model="immobilien.genutzt">
+                                <label for="vermietet">Vermietet</label>
+                            </span>
+        <span class="b-form__radio">
+                                <input name="beides" id="beides" type="radio" value="Beides" ng-model="immobilien.genutzt">
+                                <label for="beides">Beides</label>
+                            </span>
+                            <span class="b-form__child-item__input-check" ng-if="immobilien.genutzt !== 'Eigennutzung'">
+                                <span class="b-form__input b-form__euro">
+                                    <label for="Mieteinnahmen">Mieteinnahmen</label>
+                                    <input  format="currency"  id="Mieteinnahmen" type="text" ng-model="immobilien.mieteinnahmen" class="ng-pristine ng-untouched ng-valid ng-empty" ng-blur="immobilien.mieteinnahmen = vm.parseEuroFormat(immobilien.mieteinnahmen)">
+                                </span>
+                                <span class="b-form__input">
+                                    <label for="seit_wann">Seit wann</label>
+                                    <input type="date" id="seit_wann" ng-init="immobilien.seit_wann=vm.convertAllDateFromString(immobilien.seit_wann)" ng-model="immobilien.seit_wann" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                </span>
+                                <span class="b-form__input b-form__address-long b-form__address-long-m2" ng-if="immobilien.genutzt === 'Beides'">
+                                    <label for="vermietete_wohnfläche">Vermietete Wohnfläche</label>
+                                    <input id="vermietete_wohnfläche" type="text" ng-model="immobilien.rentedLiving" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                </span>
+                            </span>
+    </div>
+    <h4 class="b-form__sub-header">
+        Darlehen:<span> Sind Rechte in Abteilung III im Grundbuch vorhanden?</span></h4>
+
+    <div class="b-form__list-view b-form__list-view--horizontal clearfix">
+        <div class="b-form__list-view-item">
+            <a>
+                <img class="btn btn__plus btn--light"
+                     src="content/images/icons/plus.png"
+                     alt="plus_btn"
+                     ng-click="vm.addDarlehen(immobilien)">
+                Weiteres Darlehen erfassen
+            </a>
+        </div>
+
+    </div>
+
+        <weitere-darlehen data-array="immobilien.darlehens"></weitere-darlehen>
+
+
+</div>
+
+

@@ -1,0 +1,132 @@
+<!--Annuitätendarlehen-->
+<div class="b-form__block b-form__fields clearfix">
+    <span class="b-request__title b-buy__name">Annuitätendarlehen</span>
+    <div>
+        <span class="text-title">Bank:</span>
+        <span class="b-form__input">
+             <select style="width: 263px;"
+                     ng-model="item.bank"
+                     ng-options="p.BankanschriftId as p.Name for p in vm.banks">
+                </select>
+    </span>
+    </div>
+
+    <span class="b-form__input b-form__euro b-form__input-middle">
+    <label for="loan_amount">Darlehensbetrag</label>
+    <input format="currency"  id="loan_amount" ng-model="item.darlehensbetrag" type="text" ng-blur="item.darlehensbetrag = vm.parseEuroFormat(item.darlehensbetrag)">
+
+    </span>
+    <span class="b-form__input b-form__year b-form__input-middle">
+    <label for="fixed_rate">Zinsbindung</label>
+    <input id="fixed_rate" ng-model="item.zinsbindung" type="text">
+    </span>
+    <span class="b-form__input">
+    <div class="dropdownTwo">
+    <button ng-click="vm.myFunction()"
+            class="dropbtnTwo">Tilgungswunsch &#9660;</button>
+    <div id="myDropdownTwo" class="dropdown-contentTwo">
+    <ul>
+    <h4>Anfangliche Tilgung</h4>
+    <li><input ng-model="item.Anfangliche" value="1" class="ddti"
+               type="radio"> 1%</li>
+    <li><input ng-model="item.Anfangliche" value="2" class="ddti"
+               type="radio"> 2%</li>
+    <li><input ng-model="item.Anfangliche" value="3" class="ddti"
+               type="radio"> 3%</li>
+    <li><input ng-model="item.Anfangliche" value="andere" class="ddti"
+               type="radio"> Andere: <input
+            ng-disabled="item.Anfangliche !== 'andere'"
+            ng-model="item.anderevalue" id="andere"
+            type="text"></li>
+    </ul>
+    <ul>
+    <h4>Alternativ</h4>
+    <li><input ng-model="item.Alternativ" value="volltilger"
+               class="ddti" type="radio"> Volltilger</li>
+    <li><input ng-model="item.Alternativ" class="ddti" value="rate"
+               type="radio"> Rate: <input
+            ng-disabled="item.Alternativ !== 'rate'"
+            ng-model="item.ratevalue" id="rate" type="text"></li>
+    <li><input ng-model="item.Alternativ" class="ddti" value="ausgesetzt"
+               type="radio"> Ausgesetzt (berechnet)</li>
+    <li><input ng-model="item.Alternativ" class="ddti" value="eigenes"
+               type="radio"> Ausgesetzt (eigenes Angebor)</li>
+    </ul>
+
+    </div>
+    </div>
+    </span>
+    <span class="b-form__input b-form__percent b-form__input-middle">
+    <label for="unscheduled">Sondertilgung</label>
+    <input ng-model="item.sondertilgung" id="unscheduled" type="text">
+    </span>
+    <span class="b-form__input b-form__input-middle">
+    <label for="time">Bereitstellungszinsfreie Zeit</label>
+    <input ng-model="item.bereit" id="time" type="text">
+    </span>
+    <span class="b-form__input b-buy__option del-row">
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="$parent.vm.deleteFinanzierungsbausteine($index)">
+    </span><br>
+    <div class="eur-block">
+        <span class="b-form__input b-form__input">
+            <span class="text-title">Gesamtprovision EUR:</span>
+                <span class="b-form__input custom-euro-input">
+                <input ng-model="item.gesamtprovision_eur" id="total_commission" format type="text" ng-blur="item.gesamtprovision_eur = vm.parseEuroFormat(item.gesamtprovision_eur)">
+            </span>
+        </span>
+        <span class="b-form__input b-form__input">
+            <span class="text-title">Provision Berater EUR:</span>
+                    <span class="b-form__input custom-euro-input">
+                    <input ng-model="item.provisionBerater_eur" id="commission_consultants" format type="text" ng-blur="item.provisionBerater_eur = vm.parseEuroFormat(item.provisionBerater_eur)">
+            </span>
+        </span>
+    </div>
+
+
+    <div class="new-area" ng-repeat="items in item.dopArr">
+        <span id="nafir" class="b-request__title">tilgungsersatzprodukt <br>(Bausparvrtrag)</span>
+        <span id="nasec" class="b-form__input">
+    <label for="loan_amount">Tarif</label>
+    <select id="Tarif">
+    <option value="-1" selected="selected">Automatics</option>
+    <option value="1">Haus</option>
+    <option value="2">Post</option>
+    <option value="4">Homepage</option>
+    <option value="5">Email</option>
+    </select>
+    </span>
+        <span id="nathr" class="b-form__input">
+    <label for="loan_amount">Bausparwunsch anpassen (optional)</label>
+    <select id="anpassen">
+    <option value="-1" selected="selected">Automatics</option>
+    <option value="1">Haus</option>
+    <option value="2">Post</option>
+    <option value="4">Homepage</option>
+    <option value="5">Email</option>
+    </select>
+    </span>
+        <span id="nafor" class="b-form__input">
+    <label for="loan_amount">Abschlussgebuhr</label>
+    <p class="tilgu-p"><input id="sofortz" type="radio"> Sofortzahlung</p>
+    <p class="tilgu-p"><input id="verrech" type="radio"> Verrechnung</p>
+    </span>
+        <span id="nafiv" class="b-form__input">
+    <label for="loan_amount">Einmalzahlung</label>
+    <input id="einmalzahlung" type="text">
+    </span>
+        <span id="nasix" class="b-form__input">
+    <label for="loan_amount">Vertragspartner</label>
+    <select id="Tarif">
+    <option value="-1" selected="selected">Antragsteller 1</option>
+    <option value="1">Haus</option>
+    <option value="2">Post</option>
+    <option value="4">Homepage</option>
+    <option value="5">Email</option>
+    </select>
+    </span>
+    </div>
+    <div ng-if="show">hide show</div>
+</div>
+<!--end-->

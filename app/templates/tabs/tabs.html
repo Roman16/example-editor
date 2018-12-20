@@ -1,0 +1,39 @@
+<main class="b-main">
+    <div class="container">
+        <div class="b-tabs">
+            <ul class="b-tabs__titles clearfix">
+                <li class="b-tabs__titles-item b-tabs__big-user"
+                    ng-class="vm.current_controller === 'AntragstellerController' && 'b-tabs__titles-item--current'"
+                    ui-sref="app.tabs.antragsteller({id: vm.params_id})"><span>ANTRAGSTELLER</span></li>
+                <li ng-hide="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home"
+                    ng-class="vm.current_controller === 'ImmobilieController' && 'b-tabs__titles-item--current'"
+                    ui-sref="app.tabs.immobilie({id: vm.params_id})"><span>IMMOBILIE</span></li>
+                <li ng-hide="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home-bank"
+                    ng-class="vm.current_controller === 'KreditdatenController' && 'b-tabs__titles-item--current'"
+                    ui-sref="app.tabs.kreditdaten({id: vm.params_id})"><span>KREDIT-DATEN</span></li>
+                <li ng-hide="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home-doc"
+                    ng-class="vm.current_controller === 'DokumenteController' && 'b-tabs__titles-item--current'"
+                    ui-sref="app.tabs.dokumente({id: vm.params_id})"><span>DOKUMENTE</span></li>
+                <li ng-show="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home"
+                    ng-class="vm.current_controller === 'ImmobilieController' && 'b-tabs__titles-item--current'"><span>IMMOBILIE</span>
+                </li>
+                <li ng-show="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home-bank"
+                    ng-class="vm.current_controller === 'KreditdatenController' && 'b-tabs__titles-item--current'">
+                    <span>KREDIT-DATEN</span></li>
+                <li ng-show="vm.params_id === ''" class="b-tabs__titles-item b-tabs__home-doc"
+                    ng-class="vm.current_controller === 'DokumenteController' && 'b-tabs__titles-item--current'"><span>DOKUMENTE</span>
+                </li>
+            </ul>
+            <div ui-view style="clear: both;"></div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="b-footer">
+        <div class="container">
+            <ul class="b-footer__nav clearfix">
+                <li class="b-footer__nav-item b-footer__nav-user">Vorgang: {{vm.transactionId}}</li>
+            </ul>
+        </div>
+    </div>
+</footer>

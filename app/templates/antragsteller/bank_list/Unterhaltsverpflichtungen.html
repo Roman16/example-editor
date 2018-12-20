@@ -1,0 +1,20 @@
+<div class="b-form__group b-buy">
+    <div class="b-buy__item b-buy__name">
+        Unterhaltsverpflichtungen
+    </div>
+    <div class="b-buy__item b-buy__bet">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="first_name">Betrag</label>
+                                        <input format="currency" id="first_name" type="text" ng-model="$parent.bank.betrag" ng-blur="$parent.bank.betrag = vm.parseEuroFormat($parent.bank.betrag)">
+                                    </span>
+    </div>
+    <div class="b-buy__item b-buy__begin"></div>
+    <div class="b-buy__item b-buy__options">
+                                     <span class="b-form__input">
+                                        <!--<label for="first_name">&nbsp;</label>-->
+                                        <img src="content/images/icons/trash_basket.png"
+                                             class="btn btn__trash btn--light"
+                                             ng-click="$parent.vm._deleteBank($parent.key,$parent.bank.side)">
+                                    </span>
+    </div>
+</div>

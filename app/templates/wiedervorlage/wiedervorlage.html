@@ -1,0 +1,170 @@
+<div class="content-block wiedervorlage">
+    <div class="content-block-one">
+        <!--<div class="top-part">-->
+        <!--<span>Vorgänge auswählen:</span>-->
+        <!--<a href="">Alle</a>-->
+        <!--<a href="">Keine</a>-->
+        <!--</div>-->
+        <!--<div class="sort">-->
+        <!--<label>Sortierung:</label>-->
+        <!--<select>-->
+        <!--<option>Neueste Ereignisse</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <div style="margin-left: 20%;" class="sort">
+            <label>Bearbeiter:</label>
+            <select ng-change="vm.getRecortdByFilter()" ng-model="vm.filter.user">
+                <option value="All">All</option>
+                <option ng-repeat="item in vm.users" value="{{item.Benutzername}}">{{item.Benutzername}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="content-block-two" style="display: flex; justify-content: space-between">
+        <div style="width: 20%">
+            <div class="filter-block" style="display: flex;flex-direction: column">
+                <div class="cbt1-title">
+                    <div class="cbt1-title-img"><img src="content/images/icons/arrow.png"></div>
+                    <h4>Wiedervorlage, Fälligkeit</h4>
+                </div>
+                <span>
+					<input type="checkbox" id="keine" ng-model="vm.filter.keine"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="keine">keine Wiedervorlage</label>
+				</span>
+                <span>
+					<input type="checkbox" id="uber" ng-model="vm.filter.uber"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="uber">überfällig</label>
+				</span>
+                <span>
+					<input type="checkbox" id="heute" ng-model="vm.filter.heute"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="heute">heute</label>
+				</span>
+                <span>
+					<input type="checkbox" id="morgen" ng-model="vm.filter.morgen"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="morgen">morgen</label>
+				</span>
+                <span>
+					<input type="checkbox" id="tagen" ng-model="vm.filter.inden"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="tagen">in den nächsten 5 Tagen</label>
+				</span>
+                <span>
+					<input type="checkbox" id="spater" ng-model="vm.filter.spater"
+                           ng-change="vm.getRecortdByFilter(); searchText= null">
+					<label for="spater">später</label>
+				</span>
+            </div>
+        </div>
+        <div class="cbt2">
+            <form action="" method="get">
+                <div class="b-form__search wiedervorlage-list-search">
+                    <img src="content/images/icons/search.png" alt="search" ng-click="">
+                    <input type="text" ng-change="vm.search(searchText)" ng-model="searchText"
+                           placeholder="Vorgänge suchen (Name, Vorgangsnummer ...)">
+                </div>
+            </form>
+            <div class="cbt2-middle" style="cursor: pointer"
+                 ng-repeat="wiedervolage in vm.vorgangs.data track by $index"
+                 ng-if="vm.showList">
+                <div class="cbt2-middle-top">
+                    <input type="checkbox" name="">
+                    <div class="item-cbt2-middle-top">
+                        <h3 ui-sref="app.tabs.antragsteller({id: wiedervolage.Id})" style="width: auto">
+                            {{wiedervolage.Code}}<br>{{wiedervolage.Antragsteller1}} <span
+                                ng-if="wiedervolage.Antragsteller2">/</span> {{wiedervolage.Antragsteller2}}</h3>
+
+                        <div class="wiedervorlage-type-block">
+                            <div class="type-block-top">
+                                <div class="b-form__input" style="width: 120px;">
+                                    <button class="btn btn--light"
+                                            ng-if="wiedervolage.AntragWiedervorlageDate"
+                                            ng-click="vm.showAntragDialog = true; vm.curentItem=$index;">
+                                        Antrag erledigt <span ng-if="wiedervolage.Antrags !=0 ">({{wiedervolage.Antrags}})</span>
+                                    </button>
+                                    <i class="material-icons" ng-if="!wiedervolage.AntragWiedervorlageDate"
+                                       style="width: 79px;text-align: center">done</i>
+                                </div>
+                                <div class="b-form__input" style="margin: 0 20px;">
+                                    <input type="date" id="dateClear" ng-model="wiedervolage.AntragWiedervorlageDate"
+                                           ng-init="wiedervolage.AntragWiedervorlageDate=vm.convertAllDateFromString(wiedervolage.AntragWiedervorlageDate)"
+                                           ng-change="vm.submitAntragDate(wiedervolage, 'antrag', $index, wiedervolage.WiedervorlageChangedDate = vm.newDate)">
+                                </div>
+                                <div class="type-icons b-form__input" ng-click="vm.openComment(wiedervolage, 'antrag')">
+                                    <i class="material-icons" ng-if="!wiedervolage.AntragWiedervorlageDate">loop</i>
+                                    <i class="material-icons"
+                                       ng-if="wiedervolage.AntragWiedervorlageDate">access_alarm</i>
+                                </div>
+                            </div>
+                            <div class="type-block-top">
+                                <div class="b-form__input" style="width: 120px;">
+                                    <button class="btn btn--light"
+                                            ng-if="wiedervolage.Anfrages"
+                                            ng-click="vm.showAnfragDialog = true; vm.curentItem=$index;">
+                                        Anfrage erledigt <span ng-if="wiedervolage.Anfrages !=0 ">({{wiedervolage.Anfrages}})</span>
+                                    </button>
+                                    <i class="material-icons" ng-if="!wiedervolage.Anfrages"
+                                       style="margin-bottom: 10px;width: 79px;text-align: center">done</i>
+                                </div>
+                                <div class="b-form__input" style="margin: 0 20px;">
+                                    <input type="date" ng-model="wiedervolage.AnfrageWiedervorlageDate"
+                                           ng-init="wiedervolage.AnfrageWiedervorlageDate=vm.convertAllDateFromString(wiedervolage.AnfrageWiedervorlageDate)"
+                                           ng-change="vm.submitAntragDate(wiedervolage, 'anfrag', $index, wiedervolage.WiedervorlageChangedDate = vm.newDate)">
+                                </div>
+                                <div class="type-icons b-form__input" ng-click="vm.openComment(wiedervolage, 'anfrag')">
+                                    <i class="material-icons" ng-if="wiedervolage.Anfrages ==0">loop</i>
+                                    <i class="material-icons" ng-if="wiedervolage.Anfrages !=0">access_alarm</i>
+                                </div>
+                            </div>
+                            <div class="type-block-bottom" style="display: flex; justify-content: space-between">
+                                <div>geändert am:</div>
+                                <div class="b-form__input" style="margin: 0 44px 0 0;">
+                                    <input type="date" ng-model="wiedervolage.WiedervorlageChangedDate"
+                                           ng-init="wiedervolage.WiedervorlageChangedDate=vm.convertAllDateFromString(wiedervolage.WiedervorlageChangedDate)"
+                                           disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="cbt2-img-home" ui-sref="app.tabs.antragsteller({id: wiedervolage.Id})">
+                    <span><img src="content/images/icons/singl_home.png"></span>
+                    <span>{{wiedervolage.Login}}</span>
+                </span>
+                <div class="cbt2-middle-bottom">
+                    <img src="content/images/icons/big_user.png" alt="">
+                </div>
+            </div>
+
+            <div ng-if="vm.showAntragDialog" class="change-partner-dialog-window"
+                 style="min-width: 100px;text-align: center">
+                <h4>Vorgang aus der Liste löschen?</h4>
+                <div class="button-block">
+                    <button ng-click="vm.deleteAntragDate()">Ja</button>
+                    <button ng-click="vm.showAntragDialog = false">Nein</button>
+                </div>
+            </div>
+            <div ng-if="vm.showAnfragDialog" class="change-partner-dialog-window"
+                 style="min-width: 100px;text-align: center">
+                <h4>Vorgang aus der Liste löschen?</h4>
+                <div class="button-block">
+                    <button ng-click="vm.deleteAnfragDate()">Ja</button>
+                    <button ng-click="vm.showAnfragDialog = false">Nein</button>
+                </div>
+            </div>
+
+            <div paging
+                 page="1"
+                 page-size="100"
+                 total="vm.vorgangs.total"
+                 paging-action="vm.selectPage(page,vm.searchText)">
+            </div>
+        </div>
+        <div style="width: 31%">
+            <wiedervolage-comment ng-show="vm.commentVisible" parent="vm.commentmain" label="vm.openAntrag"
+                                  class="comment-block" style="width: 25%"></wiedervolage-comment>
+        </div>
+    </div>
+</div>

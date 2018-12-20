@@ -1,0 +1,51 @@
+<div class="b-form__block b-form__fields clearfix">
+    <div class="b-request__title b-buy__name">
+        <p>{{item.name}}</p>
+        <p><a href="">{{item.description}} <img src="content/images/icons/link.png"></a>
+        </p>
+    </div>
+    <div>
+        <span class="text-title">Bank:</span>
+        <span class="b-form__input">
+           <select style="width: 263px;"
+                                 ng-model="item.bank"
+                                 ng-options="p.BankanschriftId as p.Name for p in vm.banks">
+           </select>
+    </span>
+    </div>
+    <span class="b-form__input b-form__euro b-form__input-middle">
+            <label for="loan_amount">Darlehensbetrag</label>
+            <input  format="currency" ng-model="item.darlehensbetrag" id="loan_amount" type="text" ng-blur="item.darlehensbetrag = vm.parseEuroFormat(item.darlehensbetrag)">
+        </span>
+    <span class="b-form__input years">
+            <label for="ownership_select">Laufzeit/Zinsbindung/Tilgungsfrei</label>
+            <select id="ownership_select" ng-model="item.laufzeit">
+                <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+                <option value="1">25 LZ/ 10 ZB/ 1TA</option>
+                <option value="2">30 LZ/ 10 ZB/ 1TA%</option>
+                <option value="4">30 LZ/ 10 ZB/ 1TA%</option>
+                <option value="5">10 LZ/ 10 ZB/ 1TA%</option>
+            </select>
+        </span>
+
+        <span class="b-form__input b-buy__option">
+             <label for="date">&nbsp;</label>
+             <img src="content/images/icons/trash_basket.png"
+                                       class="btn btn__trash btn--light"
+                  ng-click="$parent.vm.deleteFinanzierungsbausteine($index)">
+        </span>
+    <div class="eur-block nkw">
+        <span class="b-form__input b-form__input">
+            <span class="text-title">Gesamtprovision EUR:</span>
+                <span class="b-form__input custom-euro-input">
+                <input ng-model="item.gesamtprovision_eur" format id="total_commission" type="text" ng-blur="item.gesamtprovision_eur = vm.parseEuroFormat(item.gesamtprovision_eur)">
+            </span>
+        </span>
+        <span class="b-form__input b-form__input">
+            <span class="text-title">Provision Berater EUR:</span>
+                    <span class="b-form__input custom-euro-input">
+                    <input ng-model="item.provisionBerater_eur" format id="commission_consultants" type="text" ng-blur="item.provisionBerater_eur = vm.parseEuroFormat(item.provisionBerater_eur)">
+            </span>
+        </span>
+    </div>
+</div>

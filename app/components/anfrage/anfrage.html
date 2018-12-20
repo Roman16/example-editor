@@ -1,0 +1,155 @@
+<div class="b-form__group anfrage_item" style="margin: 25px auto;"
+     ng-style="vm.data.reason==='genehmigt'?{border:'1px solid green'}:''">
+    <div class="b-form__group-child" style="display: flex">
+        <span class="b-form__radio">
+    <label>
+            <input ng-model="vm.data.reason" value="offen" id="offen" type="radio" ng-change="vm.showAntragBank()">
+        offen
+    </label>
+    </span>
+        <span class="b-form__radio anfrage-radio">
+            <label>
+        <input ng-model="vm.data.reason" value="angefragt" id="requested"
+               type="radio" ng-click="vm.data.angefragtDate=vm.currentDate" ng-change="vm.showAntragBank()">
+        angefragt</label>
+            <div>
+                <span class="b-form__input">
+            <input ng-init="vm.data.angefragtDate=vm.convertAllDateFromString(vm.data.angefragtDate)"
+                   ng-model="vm.data.angefragtDate"
+                   type="date">
+            </span>
+            </div>
+    </span>
+
+        <span class="b-form__radio anfrage-radio">
+    <label>
+        <input ng-model="vm.data.reason" value="genehmigt" id="approved"
+               type="radio" ng-click="vm.data.genehmigtDate=vm.currentDate"
+               ng-change="vm.showAntragBank(vm.data.genehmigtDate, vm.data.bank_id)">
+        genehmigt</label>
+                        <div>
+                <span class="b-form__input">
+            <input ng-init="vm.data.genehmigtDate=vm.convertAllDateFromString(vm.data.genehmigtDate)"
+                   ng-model="vm.data.genehmigtDate"
+                   type="date">
+            </span>
+            </div>
+
+    </span>
+
+        <span class="b-form__radio anfrage-radio">
+    <label>
+        <input ng-model="vm.data.reason" value="abgelehnt" id="declined"
+               type="radio" ng-click="vm.data.abgelehntDate=vm.currentDate"
+               ng-change="vm.showAntragBank(vm.data.abgelehntDate, vm.data.bank_id)">
+        abgelehnt
+    </label>
+            <div>
+                <span class="b-form__input">
+            <input ng-init="vm.data.abgelehntDate=vm.convertAllDateFromString(vm.data.abgelehntDate)"
+                   ng-model="vm.data.abgelehntDate"
+                   type="date">
+            </span>
+            </div>
+    </span>
+
+        <span class="b-form__radio anfrage-radio">
+
+    <label>
+        <input ng-model="vm.data.reason" value="eingereicht" id="eingereicht"
+               type="radio" ng-change="vm.showAntragBank(vm.data.eingereichtDate, vm.data.bank_id, 'eingereichtDate')">
+        eingereicht</label>
+            <div>
+                <span class="b-form__input">
+            <input ng-init="vm.data.eingereichtDate=vm.convertAllDateFromString(vm.data.eingereichtDate)"
+                   ng-model="vm.data.eingereichtDate"
+                   type="date">
+            </span>
+            </div>
+    </span>
+
+        <span class="b-form__radio anfrage-radio">
+    <label>
+        <input ng-model="vm.data.reason" value="abgerechnet"
+               type="radio" ng-click="vm.data.abgerechnetDate=vm.currentDate"
+               ng-change="vm.showAntragBank(vm.data.abgerechnetDate, vm.data.bank_id)">
+        abgerechnet</label>
+            <div>
+                <span class="b-form__input">
+            <input ng-init="vm.data.abgerechnetDate=vm.convertAllDateFromString(vm.data.abgerechnetDate)"
+                   ng-model="vm.data.abgerechnetDate"
+                   type="date">
+            </span>
+            </div>
+    </span>
+
+        <span class="b-form__radio">
+    <label>
+        <input ng-model="vm.data.reason" value="Storno" id="cancellation"
+               type="radio" ng-change="vm.showAntragBank()">
+        Storno</label>
+    </span>
+
+    </div>
+
+    <div class="b-form__group-child flexible-row">
+    <span class="b-form__input">
+        <label for="bank">Bank</label>
+        <select style="width: 260px; height: 20px;" id="bank"
+                ng-model="vm.data.bank_id"
+                ng-options="p.BankanschriftId as p.Name for p in vm.banks">
+        </select>
+    </span>
+        <!--<span class="b-form__input" ng-init="vm.data.fieldOne=vm.convertAllDateFromString(vm.data.fieldOne)">-->
+        <!--<label for="anfragestatus">Datum Statuswechsel</label>-->
+        <!--<input ng-model="vm.data.fieldOne" id="anfragestatus" type=date>-->
+        <!--</span>-->
+        <!--<span class="b-form__input" ng-init="vm.data.fieldTwo=vm.convertAllDateFromString(vm.data.fieldTwo)">-->
+        <!--<label for="datumanfrage">Datum Anfrage</label>-->
+        <!--<input ng-model="vm.data.fieldTwo" id="datumanfrage" type="date">-->
+        <!--</span>-->
+
+        <span class="b-form__input b-form__euro">
+                                <label for="betrag-eur">Betrag EUR</label>
+                                <input ng-model="vm.data.betrag" format id="betrag-eur" type="text"
+                                       ng-blur="vm.data.betrag = vm.parseEuroFormat(vm.data.betrag)">
+                            </span>
+
+        <span class="b-form__input">
+        <label for="selectablehnungsgrund" style="padding-bottom: 2px">Ablehnungsgrund</label>
+        <select ng-model="vm.data.fieldFour" id="selectablehnungsgrund" style="height: 20px; width: 155px">
+            <option ng-repeat="selector in vm.match track by $index" value="{{$index}}">{{selector}}</option>
+        </select>
+    </span>
+        <div class="smaller-date" style="margin: 0 0 0 239px;">
+        <span class="b-form__input date">
+        <label for="Wiedervorlage:">Wiedervorlage:</label>
+        <input style="width: 120px" ng-init="vm.data.wiedervorlage=vm.convertAllDateFromString(vm.data.wiedervorlage)"
+               ng-change="vm.data.wiedervorlage=vm.convertDate(vm.data.wiedervorlage)" ng-model="vm.data.wiedervorlage"
+               id="Wiedervorlage:" type="date">
+    </span>
+        </div>
+    </div>
+
+    <div class="b-buy__item b-buy__options delete-area comments-button" style="margin-top: 38px;">
+                    <span class="b-form__input" style="position: relative">
+        <img src="content/images/icons/description.png"
+             class="btn btn__trash btn--light"
+             ng-click="vm.toggleAnfrage()">
+        <div ng-show="vm.anfrageIsOpened" class="tooltip anfrage-tooltip">
+            <div class="close-tooltip" ng-click="vm.anfrageIsOpened = false;">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <label for="comments">Kommentar</label>
+            <textarea name="comments" id="comments" ng-model="vm.data.comment" ng-blur="vm.toggleAnfrage()"></textarea>
+        </div>
+        </span>
+
+        <span class="b-form__input">
+    <img src="content/images/icons/trash_basket.png"
+         class="btn btn__trash btn--light"
+         ng-click="$parent.vm.showDeleteAnfrageConfirmation($parent.$index)">
+    </span>
+    </div>
+
+</div>

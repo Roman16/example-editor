@@ -1,0 +1,37 @@
+<main class="b-main">
+    <div class="container">
+        <div class="b-tabs">
+            <div class="b-tabs__container">
+                <div class="b-form__title-dark b-form__title" style="display: flex">
+                    Dokumente {{vm.userCredentials.fname}} - {{vm.transactionId}}
+                    <change-partner partner="vm.partner" vorgangid="vm.vorgangid"></change-partner>
+                </div>
+                <div style="display: flex; justify-content: space-between">
+                <form class="document-input" id="uploadForm" action="{{trustSrc(vm.uploadDocUrl)}}" name="uploadForm" enctype="multipart/form-data" method="post">
+                    <input type="text" name="Id" ng-value="vm.id" style="visibility: hidden; display: none;">
+                    <input type="text" name="redirect" ng-value="vm.redirectUrl" style="visibility: hidden; display: none;">
+                    <!--<button class="add-document-button" type="submit">Dokumente hinzufügen</button>-->
+
+                    <choose-file-button>
+                        <button class="add-document-button" >Dokumente hinzufügen</button>
+                        <input required ng-model="vm.file" onchange="angular.element(this).scope().vm.changeFile()" id="file-id" type="file" name="Upload" multiple>
+
+                    </choose-file-button>
+                </form>
+                <button class="add-document-button" ui-sref="app.briefvorlagen">Briefvorlagen</button>
+                </div>
+                <div class="documents-list">
+                    
+                    <div ng-hide="!vm.documents.length" class="item" ng-repeat="document in vm.documents track by $index">
+                        {{document.FileName}}
+
+                        <a href="{{document.DownloadLink}}" class="download-button">
+                            <img src="content/images/icons/download.png" alt="download">
+                        </a>
+                    </div>
+                    <div ng-show="!vm.documents.length" class="item">Dokumente gefunden</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

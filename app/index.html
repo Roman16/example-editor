@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="app" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ultima</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="content/css/reset.css">
+    <link rel="stylesheet" href="content/css/main.css">
+    <link rel="stylesheet" href="bower_components/material-icons/css/material-icons.min.css">
+    <link href="bower_components/textAngular/dist/textAngular.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://unpkg.com/angular-toastr/dist/angular-toastr.css"/>
+    <link href="bower_components/angular-tooltips/dist/angular-tooltips.min.css" rel="stylesheet" type="text/css"/>
+    <!-- <link rel="stylesheet" href="bower_components/angular-confirm/dist/angular-confirm.min.css"> -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+
+
+<div ui-view></div>
+
+<script src="components/ckeditor/ckeditor.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/moment-timezone/moment-timezone.js"></script>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ckeditor/1.0.3/angular-ckeditor.js"></script>
+
+<script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
+<!--<script src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>-->
+<!--<script src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>-->
+<!--<script src="bower_components/textAngular/dist/textAngular.min.js"></script>-->
+<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+<script src="bower_components/jsPDF/dist/jspdf.debug.js"></script>
+<script src="bower_components/angular-save-html-to-pdf/dist/saveHtmlToPdf.min.js"></script>
+<script src="bower_components/angular-paging/dist/paging.js"></script>
+<script src="bower_components/angular-ui-sortable/sortable.js"> </script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="app.js"></script>
+<script src="core/core.module.js"></script>
+<script src="core/core.config.js"></script>
+<script src="core/request.js"></script>
+<script src="core/url.js"></script>
+<script src="core/blocks/directives/directives.module.js"></script>
+<script src="core/blocks/filters/filters.module.js"></script>
+<script src="core/blocks/request/request.module.js"></script>
+<script src="core/blocks/services/services.module.js"></script>
+
+
+<script src="core/filters/byName.filter.js"></script>
+
+
+
+
+<script src="templates/login/login.controller.js"></script>
+<script src="templates/dashboard/dashboard.controller.js"></script>
+<script src="templates/dashboard/dashboard.model.js"></script>
+<script src="templates/antragsteller/antragsteller.controller.js"></script>
+<script src="templates/antragsteller/antragsteller.model.js"></script>
+<script src="templates/immobilie/immobilie.controller.js"></script>
+<script src="templates/immobilie/immobilie.model.js"></script>
+<script src="templates/kreditdaten/kreditdaten.controller.js"></script>
+<script src="templates/kreditdaten/kreditdaten.model.js"></script>
+<script src="templates/dokumente/dokumente.controller.js"></script>
+<script src="templates/dokumente/dokumente.model.js"></script>
+<script src="templates/tabs/tabs.controller.js"></script>
+<script src="templates/registration/registration.controller.js"></script>
+<script src="templates/registration/registration.model.js"></script>
+<script src="templates/header/header.controller.js"></script>
+<script src="templates/wiedervorlage/wiedervorlage.controller.js"></script>
+<script src="templates/wiedervorlage/wiedervorlage.model.js"></script>
+<script src="templates/briefvorlagen/briefvorlagen.controller.js"></script>
+<script src="templates/briefvorlagen/briefvorlagen.model.js"></script>
+<script src="templates/adressenverwaltung/adressenverwaltung.controller.js"></script>
+<script src="templates/banken/banken.controller.js"></script>
+<script src="templates/banken/banken.model.js"></script>
+<script src="templates/ansprechpartner/ansprechpartner.controller.js"></script>
+<script src="templates/ansprechpartner/ansprechpartner.model.js"></script>
+<script src="templates/partner/partner.controller.js"></script>
+<script src="templates/partner/partner.model.js"></script>
+<script src="templates/statistic/statistic.controller.js"></script>
+<script src="templates/statistic/client-statistic/client-statistic.controller.js"></script>
+<script src="templates/statistic/client-statistic/client-statistic.model.js"></script>
+<script src="templates/statistic/partner-statistic/partner-statistic.controller.js"></script>
+<script src="templates/statistic/partner-statistic/partner-statistic.model.js"></script>
+
+<script src="templates/antragsteller/banks.js"></script>
+
+
+<script src="components/antragsteller/antragsteller.directive.js"></script>
+<script src="components/antragsteller/antragsteller-directive.controller.js"></script>
+<script src="components/antragsteller-change-partner/antragsteller-change-partner.directive.js"></script>
+<script src="components/antragsteller-change-partner/antragsteller-change-partner.controller.js"></script>
+<script src="components/kinder/kinder.directive.js"></script>
+<script src="components/kinder/kinder.controller.js"></script>
+<script src="components/basisangaben/basisangaben.directive.js"></script>
+<script src="components/basisangaben/basisangaben-directive.controller.js"></script>
+<script src="components/nutzung/nutzung.directive.js"></script>
+<script src="components/nutzung/nutzung-directive.controller.js"></script>
+<script src="components/bankverbindung/bankverbindung.directive.js"></script>
+<script src="components/bankverbindung/bankverbindung.controller.js"></script>
+<script src="components/weitere-immobilien/weitere-immobilien.directive.js"></script>
+<script src="components/weitere-immobilien/weitere-immobilien.controller.js"></script>
+<script src="components/weiteres-darlehen/weiteres-darlehen.directive.js"></script>
+<script src="components/weiteres-darlehen/weiteres-darlehen.controller.js"></script>
+<script src="components/antrag/antrag.directive.js"></script>
+<script src="components/antrag/antrag.controller.js"></script>
+<script src="components/antrag/antrag.factory.js"></script>
+<script src="components/anfrage/anfrage.directive.js"></script>
+<script src="components/anfrage/anfrage.controller.js"></script>
+<script src="components/search/search-directive.controller.js"></script>
+<script src="components/search/search.directive.js"></script>
+<script src="components/save-factory/save.factory.js"></script>
+<script src="components/wiedervolage-comment/wiedervolage-comment.directive.js"></script>
+<script src="components/wiedervolage-comment/wiedervolage-comment.controller.js "></script>
+<script src="components/separate-by-commas/format-directive.js "></script>
+<script src="components/currency-number-format/format.directive.js"></script>
+<script src="components/inputFile/inputFile.directive.js"></script>
+<script src="components/autocomplete/autocomplete.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-click-outside/clickoutside.directive.js"></script>
+
+
+
+</body>
+</html>

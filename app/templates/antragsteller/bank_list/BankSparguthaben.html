@@ -1,0 +1,24 @@
+<div class="b-form__group b-buy">
+    <div class="b-buy__item b-buy__name">
+        Bank- und Sparguthaben
+    </div>
+    <div class="b-buy__item b-buy__bet">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="githaben">Guthaben</label>
+                                        <input format="currency" id="githaben" type="text" ng-model="$parent.bank.githaben" ng-blur="$parent.bank.githaben = vm.parseEuroFormat($parent.bank.githaben)">
+                                    </span>
+    </div>
+    <div class="b-buy__item b-buy__begin">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="zinsertrag">Zinsertrag</label>
+                                        <input format="currency" id="zinsertrag" type="text" ng-model="$parent.bank.zinsertrag" ng-blur="$parent.bank.zinsertrag = vm.parseEuroFormat($parent.bank.zinsertrag)">
+                                    </span>
+    </div>
+    <div class="b-buy__item b-buy__options" style="margin-top: 15px;">
+                                     <span class="b-form__input">
+                                        <img src="content/images/icons/trash_basket.png"
+                                             class="btn btn__trash btn--light"
+                                             ng-click="$parent.vm._deleteBank($parent.key,$parent.bank.side)">
+                                    </span>
+    </div>
+</div>

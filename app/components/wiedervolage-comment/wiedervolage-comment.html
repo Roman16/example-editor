@@ -1,0 +1,36 @@
+<div class="cbt3" style="width: 100%;margin: 0">
+    <div class="cbt3-title">
+        <h3>{{parent.Antragsteller1}} <span ng-if="parent.Antragsteller2">/</span>  {{parent.Antragsteller2}}</h3>
+        <img src="content/images/icons/mail.png">
+        <p>Eigene Vorgangsummer:</p>
+    </div>
+    <div class="cbt3-big-user">
+        <ul>
+            <li>
+                <img src="content/images/icons/big_user.png" alt="">
+                <div class="big-user-title">
+                    <a>{{parent.Login}}</a>
+                    <p>Bearbeiter</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h5><span ng-if="parent.type">Aktueller Antrag</span><span ng-if="!parent.type">Aktuelle Anfrage</span></h5>
+        <div class="comment">
+            <img src="content/images/icons/description.png">
+            <textarea ng-if="!parent.type" ng-model="parent.AnfrageComment" placeholder="Kommentar zum Vorgang hinzufügen"></textarea>
+            <textarea ng-if="parent.type" ng-model="parent.AntragComment" placeholder="Kommentar zum Vorgang hinzufügen"></textarea>
+        </div>
+        <button ng-click="vm.addComment(vm.comment)">Speichern</button>
+        <!--<div class="del">-->
+            <!--<label>Wiedervorlage zum</label>-->
+            <!--<input type="text" name="">-->
+            <!--<img src="content/images/icons/trash_basket.png">-->
+        <!--</div>-->
+        <!--<div class="alarm">-->
+            <!--<textarea placeholder="Wiedervorlage zum Vorgang erfassen"></textarea>-->
+        <!--</div>-->
+    </div>
+    <!--<a href="#">Vorgang archivieren</a>-->
+</div>

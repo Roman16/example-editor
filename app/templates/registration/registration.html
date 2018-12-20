@@ -1,0 +1,64 @@
+<main class="b-main">
+    <div class="container">
+        <div class="b-tabs">
+            <ul class="b-tabs__titles clearfix">
+                <li class="b-tabs__titles-item b-tabs__big-user b-tabs__titles-item--current">
+                    <span>Benutzerverwaltung</span></li>
+            </ul>
+            <div class="b-tabs__container">
+                <div class="b-form__title-dark b-form__title">
+                    Persönliche Daten
+                </div>
+                <div class="user-wrap">
+                    <form class="new-user" ng-submit="vm.register()" name="registrationForm">
+                        <div class="b-banking__item b-banking__blz no-float">
+                            <span class="b-form__input">
+                                <label for="email">E-Mail-Adresse</label>
+                                <input required id="email" type="email" ng-model="vm.newUser.Email">
+                            </span>
+                            <span class="b-form__input">
+                                <label for="email">Benutzername</label>
+                                <input required type="text" ng-model="vm.newUser.Benutzername">
+                            </span>
+                            <span class="b-form__input">
+                                <label for="password">Kennwort</label>
+                                <input required id="password" type="password" ng-model="vm.newUser.Password">
+                            </span>
+                            <span class="b-form__input registration-button">
+                            <button type="submit">Benutzer anlegen</button>
+                            </span>
+                        </div>
+                    </form>
+                    <div style="margin-top: 10px">Benutzer:</div>
+                    <hr>
+                    <div class="users-container">
+                        <div class="user" ng-repeat="user in vm.users track by $index"
+                             style="margin: 10px 0;width: 100%;display:flex; align-items: center">
+                            <div class="username" style="width: 15%">{{user.Benutzername}}</div>
+                            <div class="username" style="min-width: 20%">{{user.Email}}</div>
+                            <div class="remove-user" ng-click="vm.removeDialog(user.BenutzerId)"
+                                 ng-if="user.Benutzername != 'Admin'">
+                                <img src="content/images/icons/trash_basket.png" alt="" style="width: 20px;height: 20px">
+                            </div>
+                            <!-- <span class="password-label">Initiales Passwort</span>
+                            <input type="text">
+                            <button class="delete-button">x</button>
+                            <span class="initial-pass">Benutzer muß Passwort beim ersten Login ändern</span>
+                            <input type="checkbox"> -->
+                        </div>
+
+                        <div class="briefvorlagen-dialog-window" ng-if="vm.DialogWindow">
+                            <h4>Wirklich löschen?</h4>
+                            <br>
+                            <div class="button-block">
+                                <button ng-click="vm.removeUser()">Ja</button>
+                                <button ng-click="vm.DialogWindow = false">Nein</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

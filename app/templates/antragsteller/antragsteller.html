@@ -1,0 +1,203 @@
+<main class="b-main">
+    <form name="firsttabform">
+        <div class="container">
+            <div class="b-tabs">
+                <div class="b-tabs__container">
+                    <div class="b-form__title-dark b-form__title" style="display: flex">
+                        Persönliche Daten
+                        <change-partner partner="vm.partner" vorgangid="vm.vorgangid"></change-partner>
+                    </div>
+
+                    <div class="credit-inform">
+                        <span class="b-form__input">
+                            <label>Bearbeiter</label>
+                            <input ng-model="vm.creditInform.bearbeiter" type="text" disabled>
+                        </span>
+                        <span class="b-form__input">
+                            <label>Erstellt am</label>
+                            <input ng-model="vm.creditInform.erstelltam" type="date" disabled  ng-init="vm.creditInform.erstelltam=vm.convertAllDateFromString(vm.creditInform.erstelltam)">
+                        </span>
+                        <span class="b-form__input">
+                            <label>Bank</label>
+                            <select class="appearance-select" id="bank"
+                                    disabled
+                                    ng-model="vm.creditInform.bank_id"
+                                    ng-options="p.BankanschriftId as p.Name for p in vm.banks">
+                            </select>
+                        </span>
+                        <span class="b-form__input b-form__euro">
+                            <label ng-if="vm.creditInform.FromAnfrage">Kreditsumme</label>
+                            <label ng-if="!vm.creditInform.FromAnfrage">Wunsch</label>
+                            <input ng-model="vm.creditInform.wunsch" type="text" format disabled ng-class="vm.creditInform.FromAnfrage ? 'borderGreen' : ''">
+                        </span>
+                        <span class="b-form__input">
+                            <label>Abgerechnet am</label>
+                            <input ng-model="vm.creditInform.abgerechnetDate" type="date" disabled  ng-init="vm.creditInform.abgerechnetDate=vm.convertToDate(vm.creditInform.abgerechnetDate)">
+                        </span>
+
+                        <div class="rating" style="padding: 5px 0 0 0">
+                            <a title="Bronze" class="bronze {{vm.entryObject.AnkerButton === 1 ? 'active' : '' }}" ng-click="vm.entryObject.AnkerButton = vm.entryObject.AnkerButton == 1 ? 0: 1; vm.submit()"></a>
+                            <a title="Silver" class="silver {{vm.entryObject.AnkerButton === 2 ? 'active' : '' }}" ng-click="vm.entryObject.AnkerButton = vm.entryObject.AnkerButton == 2 ? 0: 2; vm.submit()"></a>
+                            <a title="Gold" class="gold {{vm.entryObject.AnkerButton === 3 ? 'active' : '' }}" ng-click="vm.entryObject.AnkerButton = vm.entryObject.AnkerButton == 3 ? 0: 3; vm.submit()"></a>
+                        </div>
+                    </div>
+
+                    <!--antragsteller  START-->
+                    <div class="first_form clearfix">
+                        <div class="first_form clearfix">
+                            <div class="wrap-form">
+                                <h4 class="b-form__sub-header">Antragsteller 1</h4>
+
+                                <!--antragsteller-->
+                                <antragsteller data-parent="vm.entryObject.antragstellers[0]">
+                                    <!--antragsteller END-->
+                            </div>
+                            <div class="wrap-form">
+                                <h4 class="b-form__sub-header">Antragsteller 2</h4>
+                                <!--antragsteller-->
+                                <antragsteller data-parent="vm.entryObject.antragstellers[1]">
+                                    <!--antragsteller END-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--antragsteller END-->
+
+                    <!--KINDER START-->
+                    <div class="second_form clearfix">
+                        <h4 class="b-form__sub-header">Kinder: <span>Leben Kinder im Haushalt?</span></h4>
+                        <div class="b-form__title-btn b-form__title">
+                            <div class="b-form__list-view-item">
+                                <span class="kinder" ng-click="vm.addKinder()">
+                                    <img class="btn btn__plus btn--light"
+                                        src="content/images/icons/plus.png"
+                                        alt="plus_btn">
+                                    Kind erfassen
+                                </span>
+                            </div>
+                            <div class="b-form__right-list">
+                                <div class="btn btn--light" ng-click="vm.clearKinder()">Keine Kinder vorhanden</div>
+                            </div>
+                        </div>
+                        <kinder data-parent="kinder" data-index="{{$index}}" data-array="vm.entryObject.kinders"></kinder>
+                    </div>
+                    <!--KINDER END-->
+
+
+                    <div class="third_form clearfix">
+                        <div class="b-form__title-dark b-form__title">Finanzielle Situation</div>
+                        <h4 class="b-form__sub-header">Vermögen, Einnahmen, Ausgaben, Verbindlichkeiten</h4>
+
+                        <!--TOP LIST OF BANKS-->
+                        <div class="b-form__list-view clearfix">
+                            <ul class="b-form__half-col">
+                                <li class="b-form__list-view-item"
+                                    ng-repeat="item in vm.bank_list.left track by $index"
+                                    ng-class="vm.checkMaxInBanks(item) ? 'terminated-items' : ''">
+                                    <a style="cursor: pointer" ng-click="vm.addItem(item,'L')">
+                                        <img class="btn btn__plus btn--light"
+                                            ng-if="vm.checkMaxInBanks(item)"
+                                            src="content/images/icons/plus.png"
+                                            alt="plus_btn">
+                                        <img class="btn btn__plus btn--light"
+                                            ng-if="!vm.checkMaxInBanks(item)"
+                                            src="content/images/icons/plus.png"
+                                            style="visibility: hidden;"
+                                            alt="plus_btn">
+                                        {{item.name}}
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="b-form__half-col">
+                                <li class="b-form__list-view-item"
+                                    ng-repeat="item in vm.bank_list.right"
+                                    ng-class="vm.checkMaxInBanks(item) ? 'terminated-items' : ''">
+                                    <a style="cursor: pointer" ng-click="vm.addItem(item,'R')">
+                                        <img class="btn btn__plus btn--light"
+                                            ng-if="vm.checkMaxInBanks(item)"
+                                            src="content/images/icons/plus.png"
+                                            alt="plus_btn">
+                                        <img class="btn btn__plus btn--light"
+                                            ng-if="!vm.checkMaxInBanks(item)"
+                                            src="content/images/icons/plus.png"
+                                            style="visibility: hidden;"
+                                            alt="plus_btn">
+                                        {{item.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--TOP LIST OF BANKS END-->
+
+                        <!--FIELDS OF BANKS START-->
+                        <div class="b-form__blocks-separator">
+                            <ul class="b-form__block b-form__list banks-left">
+                                <li class="b-form__list-item" ng-repeat="(key,bank) in vm.entryObject.banks"
+                                    ng-if="bank.side === 'L'"
+                                    ng-include="'templates/antragsteller/bank_list/'+bank.identify+'.html'">
+                                </li>
+                            </ul>
+                            <ul class="b-form__block b-form__list banks-right">
+                                <li class="b-form__list-item" ng-repeat="(key,bank) in vm.entryObject.banks"
+                                    ng-if="bank.side === 'R'"
+                                    ng-include="'templates/antragsteller/bank_list/'+bank.identify+'.html'">
+                                </li>
+                            </ul>
+                        </div>
+                        <!--FIELDS OF BANKS END-->
+
+                    </div>
+
+
+                    <div class="second_form clearfix">
+                        <h4 class="b-form__sub-header">Weitere Immobilien: <span>Sind weitere Immobilien vorhanden?</span>
+                        </h4>
+                        <div class="b-form__title-btn b-form__title">
+                            <div class="b-form__list-view-item">
+                                <span class="kinder" ng-click="vm.addWis()">
+                                    <img class="btn btn__plus btn--light"
+                                        src="content/images/icons/plus.png"
+                                        alt="plus_btn">
+                                    Weitere Immobilien erfassen
+                                </span >
+                            </div>
+                            <div class="b-form__right-list">
+                                <div class="btn btn--light" ng-click="vm.clearWis()">Keine immobilien vorhanden</div>
+                            </div>
+                        </div>
+                        <weitere-immobilien data-array="vm.entryObject.wis"></weitere-immobilien>
+                    </div>
+
+                    <!--Bankverbindung START-->
+                    <div class="second_form clearfix">
+                        <h4 class="b-form__sub-header bankverbindung">
+                            <img class="btn btn__plus btn--light"
+                                src="content/images/icons/plus.png"
+                                ng-click="vm.addBankverbindung()"
+                                alt="plus_btn"> Bankverbindung</h4>
+                        <bankverbindung data-array="vm.entryObject.bankverbindungs">
+                        </bankverbindung>
+                    </div>
+                    <!--Bankverbindung END-->
+
+                    <div style="width: 100%;text-align: right">
+                        <button ng-click="vm.DialogWindow = true;" >
+                            Löschen
+                        </button>
+
+                        <div class="briefvorlagen-dialog-window" ng-if="vm.DialogWindow">
+                            <h4>Wirklich vorgang?</h4>
+                            <br>
+                            <div class="button-block">
+                                <button ng-click="vm.removeVorgang()">Ja</button>
+                                <button ng-click="vm.DialogWindow = false">Nein</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>

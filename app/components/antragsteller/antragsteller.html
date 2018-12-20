@@ -1,0 +1,553 @@
+<div class="b-form__block">
+    <div class="b-form__group">
+        <div class="b-form__col b-form__inline">
+                <span class="b-form__radio">
+                    <input
+                            ng-model="vm.data.sex"
+                            value="1"
+                            type="radio">
+                    <label>Herr</label>
+                </span>
+            <span class="b-form__radio">
+                    <input
+                            ng-model="vm.data.sex"
+                            value="2"
+                            type="radio">
+                    <label>Frau</label>
+                </span>
+            <span class="b-form__checkbox">
+                    <input name="prefix" type="checkbox"
+                           ng-model="vm.data.prof"
+                           ng-checked="!!vm.data.prof"
+                    >
+                    <label>Prof.</label>
+                </span>
+            <span class="b-form__checkbox">
+                    <input name="prefix" type="checkbox" ng-model="vm.data.dr" ng-checked="!!vm.data.dr">
+                    <label>Dr.</label>
+                </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--first">
+                <span class="b-form__input">
+                    <label for="first_name">Vorname</label>
+                    <input id="first_name" type="text" ng-model="vm.data.vorname" tabindex="{{(vm.data.number*100)+1}}">
+                </span>
+            <span class="b-form__phone clearfix phone-field">
+                    <label for="code1">Telefon</label>
+                    <input class="b-form__phone-code" id="code1" type="text"
+                           ng-model="vm.data.code" tabindex="{{(vm.data.number*100)+3}}">
+                    <span> - </span>
+                    <input class="b-form__phone-tel" id="phone" type="text"
+                           ng-model="vm.data.phone" tabindex="{{(vm.data.number*100)+4}}">
+                                            <a class="material-icons" href="tel:{{vm.data.code ? vm.data.code : ''}}{{vm.data.phone}}">call</a>
+                </span>
+            <span class="b-form__input">
+                    <label for="date_birthd">Geburtsdatum</label>
+                    <input id="date_birthd" type="date" placeholder="dd.mm.yyyy" ng-model="vm.data.date_birthd"
+                           tabindex="{{(vm.data.number*100)+6}}">
+                </span>
+
+        </div>
+        <div class="b-form__half-col b-form__half-col--last">
+                <span class="b-form__input">
+                    <label for="second_name">Nachname</label>
+                    <input id="second_name" type="text" ng-model="vm.data.second_name"
+                           tabindex="{{(vm.data.number*100)+2}}">
+                </span>
+            <span class="b-form__input">
+                    <label for="email">E-Mail</label>
+                    <input id="email" type="text" ng-model="vm.data.email" tabindex="{{(vm.data.number*100)+5}}">
+                </span>
+            <span class="b-form__input">
+                    <label for="comment">Weitere Kontaktmöglichkeiten</label>
+                    <textarea id="comment" ng-model="vm.data.comment" tabindex="{{(vm.data.number*100)+6}}"></textarea>
+                </span>
+        </div>
+    </div>
+
+    <!--ADDRESS PART START-->
+
+    <div class="b-form__group b-form__group--same-height" style="margin-bottom: 0;">
+
+        <!--SHOW ADDRESS BUTTON-->
+        <!--<span ng-hide="vm.show_address" class="b-form__input">
+                                <label>&nbsp;</label>
+                                <div class="btn btn--light"
+                                     ng-click="vm.customAddress()">Abweichende Anschrift erfassen</div>
+                                 </span>-->
+
+
+        <div
+                class="b-form__group b-form__group--same-height" style="border-bottom: none; margin-bottom: 0;">
+            <div class="b-form__half-col b-form__half-col--first">
+                                    <span class="b-form__address clearfix">
+                                        <span class="b-form__input b-form__address-long">
+                                            <label for="street_name">Straße</label>
+                                            <input id="street_name" type="text"
+                                                   ng-model="vm.data.street" tabindex="{{(vm.data.number*100)+7}}">
+
+                                        </span>
+                                        <span class="b-form__input b-form__address-short">
+                                            <label for="street_numb">Nr.</label>
+                                            <input id="street_numb" type="text"
+                                                   ng-model="vm.data.house" tabindex="{{(vm.data.number*100)+8}}">
+
+                                        </span>
+                                    </span>
+                <span class="b-form__input">
+                                        <label for="seit">Wohnhaft seit</label>
+                                        <input id="seit" type="date"
+                                               ng-init="vm.data.seit=vm.convertAllDateFromString(vm.data.seit)"
+                                               ng-model="vm.data.seit"
+                                               tabindex="{{(vm.data.number*100)+11}}">
+
+                                    </span>
+                <div class="b-form__group" style="margin-bottom: 0;">
+                    <div class="b-form__half-col b-form__half-col--first" style="width: 100%; padding-top:60px">
+            <span class="b-form__input">
+                                    <label for="famili">Familienstand</label>
+                                    <select id="famili" class="gwt-ListBox" ng-model="vm.data.famili"
+                                            convert-to-number tabindex="{{(vm.data.number*100)+13}}">
+                                        <option value="-1">Bitte wählen Sie ...</option>
+                                        <option value="1">Verheiratet</option>
+                                        <option value="2">Ledig</option>
+                                        <option value="3">Getrennt lebend</option>
+                                        <option value="4">Geschieden</option>
+                                        <option value="5">Lebenspartnerschaft</option>
+                                        <option value="6">Verwitwet</option>
+                                    </select>
+                                </span>
+                        <span class="b-form__input">
+                                    <label for="country">Staatsangehörigkeit</label>
+                                    <select id="country" class="gwt-ListBox" ng-model="vm.data.country"
+                                            convert-to-number tabindex="{{(vm.data.number*100)+13}}">
+                                        <option value="-1" selected="selected">Bitte wählen Sie ...</option>
+                                        <option value="Deutschland">Deutschland</option>
+                                        <option value="Frankreich">Frankreich</option>
+                                        <option value="Niederlande">Niederlande</option>
+                                        <option value="Schweiz">Schweiz</option>
+                                        <option value="Türkei">Türkei</option>
+                                        <option value="Großbritannien und Nordirland">Großbritannien und Nordirland</option>
+                                        <option value="-2">─────────────────────────</option>
+                                        <option value="-3">EU-Länder</option>
+                                        <option value="Belgien">Belgien</option>
+                                        <option value="Bulgarien">Bulgarien</option>
+                                        <option value="Dänemark">Dänemark</option>
+                                        <option value="Deutschland">Deutschland</option>
+                                        <option value="Estland">Estland</option>
+                                        <option value="Finnland">Finnland</option>
+                                        <option value="Frankreich">Frankreich</option>
+                                        <option value="Griechenland">Griechenland</option>
+                                        <option value="Irland">Irland</option>
+                                        <option value="Italien">Italien</option>
+                                        <option value="Kroatien">Kroatien</option>
+                                        <option value="Lettland">Lettland</option>
+                                        <option value="Litauen">Litauen</option>
+                                        <option value="Luxemburg">Luxemburg</option>
+                                        <option value="Malta">Malta</option>
+                                        <option value="Niederlande">Niederlande</option>
+                                        <option value="Österreich">Österreich</option>
+                                        <option value="Polen">Polen</option>
+                                        <option value="Portugal">Portugal</option>
+                                        <option value="Rumänien">Rumänien</option>
+                                        <option value="Schweden">Schweden</option>
+                                        <option value="Slowakei">Slowakei</option>
+                                        <option value="Slowenien">Slowenien</option>
+                                        <option value="Spanien">Spanien</option>
+                                        <option value="Tschechische Republik">Tschechische Republik</option>
+                                        <option value="Ungarn">Ungarn</option>
+                                        <option value="Großbritannien und Nordirland">Großbritannien und Nordirland</option>
+                                        <option value="Zypern">Zypern</option>
+                                        <option value="-2">─────────────────────────</option>
+                                        <option value="-3">Nicht-EU-Länder</option>
+                                        <option value="Afghanistan">Afghanistan</option>
+                                        <option value="Ägypten Arabische Republik">Ägypten Arabische Republik</option>
+                                        <option value="Åland">Åland</option>
+                                        <option value="Albanien">Albanien</option>
+                                        <option value="Algerien">Algerien</option>
+                                        <option value="Amerikanisch-Samoa">Amerikanisch-Samoa</option>
+                                        <option value="Andorra Fürstentum">Andorra Fürstentum</option>
+                                        <option value="Angola">Angola</option>
+                                        <option value="Anguilla">Anguilla</option>
+                                        <option value="Antarktis">Antarktis</option>
+                                        <option value="Antigua und Barbuda">Antigua und Barbuda</option>
+                                        <option value="Äquatorialguinea Republik">Äquatorialguinea Republik</option>
+                                        <option value="Argentinien">Argentinien</option>
+                                        <option value="Armenien">Armenien</option>
+                                        <option value="Aruba">Aruba</option>
+                                        <option value="Aserbaidschan">Aserbaidschan</option>
+                                        <option value="Äthiopien">Äthiopien</option>
+                                        <option value="Australien">Australien</option>
+                                        <option value="Bahamas">Bahamas</option>
+                                        <option value="Bahrain">Bahrain</option>
+                                        <option value="Bangladesch">Bangladesch</option>
+                                        <option value="Barbados">Barbados</option>
+                                        <option value="Belize">Belize</option>
+                                        <option value="Benin">Benin</option>
+                                        <option value="Bermuda-Inseln">Bermuda-Inseln</option>
+                                        <option value="Bhutan">Bhutan</option>
+                                        <option value="Bolivien">Bolivien</option>
+                                        <option value="Bosnien und Herzegowina">Bosnien und Herzegowina</option>
+                                        <option value="Botsuana">Botsuana</option>
+                                        <option value="Bouvet-Insel">Bouvet-Insel</option>
+                                        <option value="Brasilien">Brasilien</option>
+                                        <option value="Britische Territorien im Indischen Ozean">Britische Territorien im Indischen Ozean</option>
+                                        <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                        <option value="Burkina Faso">Burkina Faso</option>
+                                        <option value="Burundi">Burundi</option>
+                                        <option value="Chile">Chile</option>
+                                        <option value="China">China</option>
+                                        <option value="Cookinseln">Cookinseln</option>
+                                        <option value="Costa Rica">Costa Rica</option>
+                                        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                                        <option value="Dominica">Dominica</option>
+                                        <option value="Dominikanische Republik">Dominikanische Republik</option>
+                                        <option value="Dschibuti">Dschibuti</option>
+                                        <option value="Ecuador">Ecuador</option>
+                                        <option value="El Salvador">El Salvador</option>
+                                        <option value="Eritrea">Eritrea</option>
+                                        <option value="Falkland-Inseln (Malvinen)">Falkland-Inseln (Malvinen)</option>
+                                        <option value="Färöer-Inseln">Färöer-Inseln</option>
+                                        <option value="Fidschi">Fidschi</option>
+                                        <option value="Franz. Südpolarterritorien">Franz. Südpolarterritorien</option>
+                                        <option value="Französisch-Guyana">Französisch-Guyana</option>
+                                        <option value="Französisch-Polynesien">Französisch-Polynesien</option>
+                                        <option value="Gabun">Gabun</option>
+                                        <option value="Gambia">Gambia</option>
+                                        <option value="Georgien">Georgien</option>
+                                        <option value="Ghana">Ghana</option>
+                                        <option value="Gibraltar">Gibraltar</option>
+                                        <option value="Grenada">Grenada</option>
+                                        <option value="Grönland">Grönland</option>
+                                        <option value="Guadeloupe">Guadeloupe</option>
+                                        <option value="Guam">Guam</option>
+                                        <option value="Guatemala">Guatemala</option>
+                                        <option value="Guinea">Guinea</option>
+                                        <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                        <option value="Guyana">Guyana</option>
+                                        <option value="Haiti">Haiti</option>
+                                        <option value="Heard-, MacDonald-Inseln">Heard-, MacDonald-Inseln</option>
+                                        <option value="Honduras">Honduras</option>
+                                        <option value="Hongkong">Hongkong</option>
+                                        <option value="Indien">Indien</option>
+                                        <option value="Indonesien">Indonesien</option>
+                                        <option value="Irak">Irak</option>
+                                        <option value="Iran, Islamische Republik">Iran, Islamische Republik</option>
+                                        <option value="Island">Island</option>
+                                        <option value="Israel">Israel</option>
+                                        <option value="Jamaika">Jamaika</option>
+                                        <option value="Japan">Japan</option>
+                                        <option value="Jemen">Jemen</option>
+                                        <option value="Jordanien">Jordanien</option>
+                                        <option value="Jungfern-Inseln (UK)">Jungfern-Inseln (UK)</option>
+                                        <option value="Jungfern-Inseln (USA)">Jungfern-Inseln (USA)</option>
+                                        <option value="Kaiman-Inseln">Kaiman-Inseln</option>
+                                        <option value="Kambodscha">Kambodscha</option>
+                                        <option value="Kamerun">Kamerun</option>
+                                        <option value="Kanada">Kanada</option>
+                                        <option value="Kap Verde">Kap Verde</option>
+                                        <option value="Kasachstan">Kasachstan</option>
+                                        <option value="Katar">Katar</option>
+                                        <option value="Kenia">Kenia</option>
+                                        <option value="Kirgisistan">Kirgisistan</option>
+                                        <option value="Kiribati">Kiribati</option>
+                                        <option value="Kokos-Inseln">Kokos-Inseln</option>
+                                        <option value="Kolumbien">Kolumbien</option>
+                                        <option value="Komoren">Komoren</option>
+                                        <option value="Kongo (Dem. Rep. Kongo)">Kongo (Dem. Rep. Kongo)</option>
+                                        <option value="Kongo (Rep. Kongo)">Kongo (Rep. Kongo)</option>
+                                        <option value="Korea, Republik">Korea, Republik</option>
+                                        <option value="Kosovo">Kosovo</option>
+                                        <option value="Kuba">Kuba</option>
+                                        <option value="Kuwait">Kuwait</option>
+                                        <option value="Laos">Laos</option>
+                                        <option value="Lesotho">Lesotho</option>
+                                        <option value="Libanon">Libanon</option>
+                                        <option value="Liberia">Liberia</option>
+                                        <option value="Libysch">Libysch</option>
+                                        <option value="Liechtenstein">Liechtenstein</option>
+                                        <option value="Macao">Macao</option>
+                                        <option value="Madagaskar">Madagaskar</option>
+                                        <option value="Malawi">Malawi</option>
+                                        <option value="Malaysia">Malaysia</option>
+                                        <option value="Malediven">Malediven</option>
+                                        <option value="Mali">Mali</option>
+                                        <option value="Marokko">Marokko</option>
+                                        <option value="Marshallinseln">Marshallinseln</option>
+                                        <option value="Martinique">Martinique</option>
+                                        <option value="Mauretanien">Mauretanien</option>
+                                        <option value="Mauritius">Mauritius</option>
+                                        <option value="Mayotte">Mayotte</option>
+                                        <option value="Mazedonien">Mazedonien</option>
+                                        <option value="Mexiko">Mexiko</option>
+                                        <option value="Mikronesien">Mikronesien</option>
+                                        <option value="Moldau, Republik">Moldau, Republik</option>
+                                        <option value="Monaco">Monaco</option>
+                                        <option value="Mongolei">Mongolei</option>
+                                        <option value="Montenegro">Montenegro</option>
+                                        <option value="Montserrat">Montserrat</option>
+                                        <option value="Mosambik">Mosambik</option>
+                                        <option value="Myanmar">Myanmar</option>
+                                        <option value="Namibia">Namibia</option>
+                                        <option value="Nauru">Nauru</option>
+                                        <option value="Nepal">Nepal</option>
+                                        <option value="Neukaledonien">Neukaledonien</option>
+                                        <option value="Neuseeland">Neuseeland</option>
+                                        <option value="Nicaragua">Nicaragua</option>
+                                        <option value="Niederländische Antillen">Niederländische Antillen</option>
+                                        <option value="Niger">Niger</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        <option value="Niue">Niue</option>
+                                        <option value="Nordkorea">Nordkorea</option>
+                                        <option value="Nordliche Mariannen Insel">Nordliche Mariannen Insel</option>
+                                        <option value="Norfolk-Insel">Norfolk-Insel</option>
+                                        <option value="Norwegen">Norwegen</option>
+                                        <option value="Oman">Oman</option>
+                                        <option value="Pakistan">Pakistan</option>
+                                        <option value="Palästina (besetzte Territorien)">Palästina (besetzte Territorien)</option>
+                                        <option value="Palau">Palau</option>
+                                        <option value="Panama">Panama</option>
+                                        <option value="Papua-Neuguinea">Papua-Neuguinea</option>
+                                        <option value="Paraguay">Paraguay</option>
+                                        <option value="Peru">Peru</option>
+                                        <option value="Philippinen">Philippinen</option>
+                                        <option value="Pitcairn-Inseln">Pitcairn-Inseln</option>
+                                        <option value="Puerto Rico">Puerto Rico</option>
+                                        <option value="Réunion">Réunion</option>
+                                        <option value="Ruanda">Ruanda</option>
+                                        <option value="Russische Förderation">Russische Förderation</option>
+                                        <option value="Salomonen">Salomonen</option>
+                                        <option value="Sambia">Sambia</option>
+                                        <option value="Samoa">Samoa</option>
+                                        <option value="San Marino">San Marino</option>
+                                        <option value="São Tomé und Príncipe">São Tomé und Príncipe</option>
+                                        <option value="Saudi-Arabien">Saudi-Arabien</option>
+                                        <option value="Schweiz">Schweiz</option>
+                                        <option value="Senegal">Senegal</option>
+                                        <option value="Serbien">Serbien</option>
+                                        <option value="Seychellen">Seychellen</option>
+                                        <option value="Sierra Leone">Sierra Leone</option>
+                                        <option value="Simbabwe">Simbabwe</option>
+                                        <option value="Singapur">Singapur</option>
+                                        <option value="Somalia">Somalia</option>
+                                        <option value="Sri Lanka">Sri Lanka</option>
+                                        <option value="St. Helena">St. Helena</option>
+                                        <option value="St. Kitts und Nevis">St. Kitts und Nevis</option>
+                                        <option value="St. Lucia">St. Lucia</option>
+                                        <option value="St. Pierre und Miquelon">St. Pierre und Miquelon</option>
+                                        <option value="St. Vincent">St. Vincent</option>
+                                        <option value="Süd Georgia und Sandw. Inseln">Süd Georgia und Sandw. Inseln</option>
+                                        <option value="Südafrika">Südafrika</option>
+                                        <option value="Sudan">Sudan</option>
+                                        <option value="Suriname">Suriname</option>
+                                        <option value="Svalbard und Jan Mayen">Svalbard und Jan Mayen</option>
+                                        <option value="Swasiland">Swasiland</option>
+                                        <option value="Syrien, Arabische Republik">Syrien, Arabische Republik</option>
+                                        <option value="Tadschikistan">Tadschikistan</option>
+                                        <option value="Taiwan">Taiwan</option>
+                                        <option value="Tansania">Tansania</option>
+                                        <option value="Thailand">Thailand</option>
+                                        <option value="Timor-Leste">Timor-Leste</option>
+                                        <option value="Togo">Togo</option>
+                                        <option value="Tokelau">Tokelau</option>
+                                        <option value="Tonga">Tonga</option>
+                                        <option value="Trinidad und Tobago">Trinidad und Tobago</option>
+                                        <option value="Tschad">Tschad</option>
+                                        <option value="228">Tunesien</option>
+                                        <option value="Tunesien">Türkei</option>
+                                        <option value="Turkmenistan">Turkmenistan</option>
+                                        <option value="Turks-, Caicos-Inseln">Turks-, Caicos-Inseln</option>
+                                        <option value="Tuvalu">Tuvalu</option>
+                                        <option value="Übrige Inseln im Pazifik der USA">Übrige Inseln im Pazifik der USA</option>
+                                        <option value="Uganda">Uganda</option>
+                                        <option value="Ukraine">Ukraine</option>
+                                        <option value="Uruguay">Uruguay</option>
+                                        <option value="Usbekistan">Usbekistan</option>
+                                        <option value="Vanuatu">Vanuatu</option>
+                                        <option value="Vatikanstadt">Vatikanstadt</option>
+                                        <option value="Venezuela">Venezuela</option>
+                                        <option value="Vereinigte Arabische Emirate">Vereinigte Arabische Emirate</option>
+                                        <option value="Vereinigte Staaten">Vereinigte Staaten</option>
+                                        <option value="Vietnam">Vietnam</option>
+                                        <option value="Wallis und Futuna">Wallis und Futuna</option>
+                                        <option value="Weihnachtsinsel (AUS)">Weihnachtsinsel (AUS)</option>
+                                        <option value="Weißrussland">Weißrussland</option>
+                                        <option value="Westsahara">Westsahara</option>
+                                        <option value="Zentralafrikanische Republik">Zentralafrikanische Republik</option>
+                                    </select>
+                                </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b-form__half-col b-form__half-col--last">
+                                    <span class="b-form__address clearfix">
+                                        <span class="b-form__input b-form__address-short">
+                                            <label for="plz">PLZ</label>
+                                            <input id="plz" type="text" ng-model="vm.data.plz"
+                                                   tabindex="{{(vm.data.number*100)+9}}">
+                                        </span>
+                                        <span class="b-form__input b-form__address-long">
+                                            <label for="ort">Ort</label>
+                                            <input id="ort" type="text" ng-model="vm.data.ort"
+                                                   tabindex="{{(vm.data.number*100)+10}}">
+                                        </span>
+                                    </span>
+                <span class="b-form__kommentar">
+                                        <span class="b-form__input b-form__kommentar">
+                                            <label for="kommentar">Kommentar</label>
+                                            <textarea id="kommentar" type="text" ng-model="vm.data.komment"
+                                                      tabindex="{{(vm.data.number*100)+12}}"
+                                                      class="ng-pristine ng-valid ng-touched ng-untouched ng-empty"
+                                                      style="height: 180px;"></textarea>
+                                        </span>
+                                    </span>
+
+            </div>
+
+        </div>
+    </div>
+    <!--ADDRESS PART END-->
+
+
+    <div class="b-form__group" style="display: flex;flex-wrap: wrap">
+        <div class="b-form__half-col b-form__half-col--first">
+                                <span class="b-form__input">
+                                    <label for="art">Art der Beschäftigung</label>
+                                    <select id="art" class="gwt-ListBox" ng-model="vm.data.art"
+                                            convert-to-number tabindex="{{(vm.data.number*100)+14}}"><option
+                                            value="-1">Bitte wählen Sie ...</option><option
+                                            value="1">Angestellter</option><option value="2">Arbeiter</option><option
+                                            value="3">Arbeitsloser</option><option value="4">Beamter</option><option
+                                            value="5">Freiberufler</option><option
+                                            value="6">Hausfrau / Hausmann</option><option
+                                            value="7">Rentner</option><option
+                                            value="8">Selbständiger</option></select>
+                                </span>
+        </div>
+
+        <div class="b-form__half-col b-form__half-col--last">
+                                <span class="b-form__input b-form__euro">
+                                    <label for="netto">Einkommen Netto</label>
+                                    <input id="netto" type="text" ng-model="vm.data.netto"
+                                           format="currency"
+                                           tabindex="{{(vm.data.number*100)+15}}"
+                                           ng-blur="vm.data.netto = vm.parseEuroFormat(vm.data.netto)">
+
+                                </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--first">
+                                <span class="b-form__input">
+                                    <label for="beruf">Beruf</label>
+                                    <input id="beruf" type="text" ng-model="vm.data.beruf"
+                                           tabindex="{{(vm.data.number*100)+16}}">
+                                </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--last">
+                                <span class="b-form__input">
+                                    <label for="anzahl">Anzahl der Gehälter pro Jahr</label>
+                                    <select id="anzahl" ng-model="vm.data.anzahl"
+                                            tabindex="{{(vm.data.number*100)+17}}">
+                                        <option value=""></option>
+                                        <option value="12">12</option>
+                                        <option value="12.5">12.5</option>
+                                        <option value="13">13</option>
+                                        <option value="13.5">13.5</option>
+                                        <option value="14">14</option>
+                                        <option value="14.5">14.</option>
+                                        <option value="15">15</option>
+                                    </select>
+
+                                </span>
+        </div>
+        <div class="b-form__half-col b-form__half-col--first">
+                                <span class="b-form__input">
+                                    <label for="arbeitgeber">Arbeitgeber</label>
+                                    <input id="arbeitgeber" type="text"
+                                           ng-model="vm.data.arbeitgeber" tabindex="{{(vm.data.number*100)+18}}">
+                                </span>
+        </div>
+
+        <div class="b-form__half-col b-form__half-col--last">
+            <span class="b-form__radio-label">
+                <label>Ist der Arbeitgeber in Deutschland ansässig?</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.arbeitgeberansassig" value="1" type="radio"
+                               tabindex="{{(vm.data.number*100)+19}}">
+                        <label>ja</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.arbeitgeberansassig" value="0" type="radio"
+                               tabindex="{{(vm.data.number*100)+20}}">
+                        <label>nein</label>
+                    </span>
+                </span>
+            </span>
+        </div>
+
+        <div class="b-form__half-col b-form__half-col--first">
+            <span class="b-form__col b-form__inline">
+            <span class="b-form__input">
+                <label for="beschäftigt">Beschäftigt seit</label>
+                <input ng-init="vm.data.beschaftigtseit=vm.convertAllDateFromString(vm.data.beschaftigtseit)"
+                       ng-model="vm.data.beschaftigtseit" type="date" placeholder="dd.mm.yyyy" id="beschäftigt"
+                       tabindex="{{(vm.data.number*100)+21}}">
+            </span>
+            <span>
+                <input ng-model="vm.data.probezeit" type="checkbox" id="probezeit">
+                <label for="probezeit">Probezeit</label>
+            </span>
+        </span>
+        </div>
+
+        <div class="b-form__half-col b-form__half-col--last">
+                        <span class="b-form__radio-label">
+                <label>Beschäftigungsstatus</label>
+                <span class="b-form__col b-form__inline">
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.beschaftigungsstatus" value="1" type="radio"
+                               tabindex="{{(vm.data.number*100)+22}}">
+                        <label>unbefristet</label>
+                    </span>
+                    <span class="b-form__radio">
+                        <input ng-model="vm.data.beschaftigungsstatus" value="0" type="radio"
+                               tabindex="{{(vm.data.number*100)+23}}">
+                        <label>befristet</label>
+                    </span>
+                </span>
+            </span>
+        </div>
+        <p class="divider"></p>
+        <div class="situation"><p>Situation nach Renteneintritt</p></div>
+        <div class="rente-row">
+            <span class="b-form__input short_span b-form__address-short">
+                <label for="rentenbeginn">Rentenbeginn</label>
+                <input ng-model="vm.data.rentenbeginn" type="text" name="rentenbeginn" id="rentenbeginn"
+                       tabindex="{{(vm.data.number*100)+24}}">
+            </span>
+
+            <span class="b-form__input short_span b-form__euro  b-form__address-short">
+                <label for="rente">Gesetzliche Rente</label>
+                <input format="currency" ng-model="vm.data.gesetzlicherente" type="text" name="renten" id="rente"
+                       tabindex="{{(vm.data.number*100)+25}}"
+                       ng-blur="vm.data.gesetzlicherente = vm.parseEuroFormat(vm.data.gesetzlicherente)">
+            </span>
+
+            <span class="b-form__input short_span b-form__euro  b-form__address-short">
+                <label for="p_rente">Private Rente</label>
+                <input format="currency" ng-model="vm.data.privaterente" type="text" name="p_renten" id="p_rente"
+                       tabindex="{{(vm.data.number*100)+26}}"
+                       ng-blur="vm.data.privaterente = vm.parseEuroFormat(vm.data.privaterente)">
+            </span>
+
+            <span class="b-form__input short_span b-form__euro  b-form__address-short">
+                <label for="sonstiges">Sonstiges Einkommen</label>
+                <input format="currency" ng-model="vm.data.sonstigeseinkommen" type="text" name="sonstiges"
+                       id="sonstiges" tabindex="{{(vm.data.number*100)+27}}"
+                       ng-blur="vm.data.sonstigeseinkommen = vm.parseEuroFormat(vm.data.sonstigeseinkommen)">
+            </span>
+
+        </div>
+    </div>
+</div>
